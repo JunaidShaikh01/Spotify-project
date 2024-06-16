@@ -1,6 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpotify } from "@fortawesome/free-brands-svg-icons";
+import { Form } from "react-router-dom";
 
 export default function AdminLogin() {
   return (
@@ -10,7 +11,11 @@ export default function AdminLogin() {
           <FontAwesomeIcon className="text-4xl" icon={faSpotify} />
           <h2 className="text-4xl font-semibold mb-6"> Spotify Admin Login</h2>
         </div>
-        <form method="post" className="mt-6 flex flex-col text-white">
+        <Form
+          method="post"
+          action="/adminLogin"
+          className="mt-6 flex flex-col text-white"
+        >
           <label className="mb-3">Username</label>
           <input
             className="bg-transparent border rounded py-2 pl-4 text-lg font-semibold mb-4"
@@ -26,7 +31,7 @@ export default function AdminLogin() {
           <button className="bg-[#1fdf64] text-black border-none mt-8 font-semibold text-xl py-2 rounded-full mb-4 hover:bg-[#63d28c] active:bg-[#03491d] transform ease-in-out duration-300 ">
             Login
           </button>
-        </form>
+        </Form>
       </div>
     </div>
   );
