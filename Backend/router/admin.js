@@ -1,7 +1,16 @@
 const express = require("express");
 const adminRouter = express.Router();
+const path = require("path");
+const multer = require("multer");
+const bcrypt = require("bcrypt");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const app = express();
+const cors = require("cors");
+app.use(cors());
+app.use(express.json());
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 const zod = require("zod");
 const signinSchema = zod.object({
   adminId: zod.string().email(),
@@ -40,6 +49,45 @@ adminRouter.post("/login", async (req, res) => {
   });
 });
 
+//Upload Song
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
+const upload = multer({ storage });
+
+adminRouter.post(
+  "/upload",
+  upload.fields([{ name: "image" }, { name: "audio" }]),
+  async (req, res) => {
+    if (!req.files || req.files.image || req.files.audio) {
+      return res.status(400).json({
+        msg: "Please upload image and audio",
+      });
+    }
+    console.log(req.body); // Log request body for debugging
+    console.log(req.files);
+    const imageUrl = req.files.image[0].path;
+    const audioUrl = req.files.audio[0].path;
+    const { name, albumName, singerName, language, category } = req.body;
+    const upload = await prisma.songs.create({
+      data: {
+        name,
+        albumName,
+        singerName,
+        language,
+        category,
+        imageUrl,
+        audioUrl,
+      },
+    });
+    res.json(upload);
+  }
+);
 module.exports = {
   adminRouter,
 };

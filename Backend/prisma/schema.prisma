@@ -21,7 +21,11 @@ model Admin {
 
 model Songs {
   id         Int      @id @default(autoincrement())
-  nama       String
+  name       String
+  albumName  String
+  singerName String
+  language   String
+  category   String
   imageUrl   String
   audioUrl   String
   creratedAt DateTime @default(now())
