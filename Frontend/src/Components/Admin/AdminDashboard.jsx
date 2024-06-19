@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import AdminNavbar from "./AdminNavbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faX } from "@fortawesome/free-solid-svg-icons";
+import { Form } from "react-router-dom";
 
 export default function AdminDashboard() {
   const [showModal, setShowModal] = useState(false);
@@ -48,23 +49,27 @@ export default function AdminDashboard() {
                 className="text-2xl mb-4 cursor-pointer"
               />
             </div>
-            <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Form
+              method="post"
+              action="/adminDashboard"
+              className="grid grid-cols-1 md:grid-cols-2 gap-4"
+            >
               <input
                 type="text"
                 placeholder="Name of Song"
-                name="song name"
+                name="name"
                 className="p-2 border rounded col-span-2 bg-transparent"
               />
               <input
                 type="text"
                 placeholder="Album Name"
-                name="album name"
+                name="albumName"
                 className="p-2 border rounded bg-transparent"
               />
               <input
                 type="text"
                 placeholder="Singer Name"
-                name="singer name"
+                name="singerName"
                 className="p-2 border rounded bg-transparent"
               />
               <input
@@ -82,22 +87,19 @@ export default function AdminDashboard() {
               <input
                 type="file"
                 accept="audio/*"
-                name="audio"
+                name="audioUrl"
                 className="p-2 border rounded col-span-2 cursor-pointer bg-transparent"
               />
               <input
                 type="file"
                 accept="image/*"
-                name="image"
+                name="imageUrl"
                 className="p-2 border rounded col-span-2 cursor-pointer bg-transparent"
               />
-              <button
-                type="submit"
-                className="bg-[#1fdf64] text-black font-semibold text-2xl py-2 rounded-lg col-span-2"
-              >
+              <button className="bg-[#1fdf64] text-black font-semibold text-2xl py-2 rounded-lg col-span-2">
                 Add
               </button>
-            </form>
+            </Form>
           </div>
         </div>
       )}

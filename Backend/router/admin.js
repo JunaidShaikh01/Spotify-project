@@ -5,11 +5,8 @@ const multer = require("multer");
 const bcrypt = require("bcrypt");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const app = express();
-const cors = require("cors");
-app.use(cors());
-app.use(express.json());
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+adminRouter.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 const zod = require("zod");
 const signinSchema = zod.object({
@@ -23,7 +20,7 @@ adminRouter.post("/login", async (req, res) => {
 
   if (!validation.success) {
     return res.status(400).json({
-      msg: "You send wrong inputs",
+      msg: "You sent wrong inputs",
     });
   }
   const { adminId, password } = validation.data;
@@ -64,13 +61,13 @@ adminRouter.post(
   "/upload",
   upload.fields([{ name: "image" }, { name: "audio" }]),
   async (req, res) => {
+    console.log("Request body", req.body);
+    console.log("Request file", req.files);
     if (!req.files || req.files.image || req.files.audio) {
       return res.status(400).json({
         msg: "Please upload image and audio",
       });
     }
-    console.log(req.body); // Log request body for debugging
-    console.log(req.files);
     const imageUrl = req.files.image[0].path;
     const audioUrl = req.files.audio[0].path;
     const { name, albumName, singerName, language, category } = req.body;

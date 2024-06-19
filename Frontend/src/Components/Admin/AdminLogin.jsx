@@ -21,12 +21,14 @@ export default function AdminLogin() {
             className="bg-transparent border rounded py-2 pl-4 text-lg font-semibold mb-4"
             type="email"
             placeholder="Email  or username"
+            name="adminId"
           />
           <label className="mb-3">Password</label>
           <input
             className="bg-transparent border rounded py-2 pl-4 text-lg font-semibold"
             type="password"
             placeholder="Password"
+            name="adminPassword"
           />
           <button className="bg-[#1fdf64] text-black border-none mt-8 font-semibold text-xl py-2 rounded-full mb-4 hover:bg-[#63d28c] active:bg-[#03491d] transform ease-in-out duration-300 ">
             Login
