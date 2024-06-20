@@ -1,12 +1,9 @@
 const express = require("express");
 const adminRouter = express.Router();
-const path = require("path");
 const multer = require("multer");
-const bcrypt = require("bcrypt");
+const path = require("path");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-
-adminRouter.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 const zod = require("zod");
 const signinSchema = zod.object({
@@ -46,16 +43,16 @@ adminRouter.post("/login", async (req, res) => {
   });
 });
 
-//Upload Song
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
+  destination: function (req, file, cb) {
     cb(null, "uploads/");
   },
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`);
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname));
   },
 });
-const upload = multer({ storage });
+
+const upload = multer({ storage: storage });
 
 adminRouter.post(
   "/upload",
@@ -63,28 +60,61 @@ adminRouter.post(
   async (req, res) => {
     console.log("Request body", req.body);
     console.log("Request file", req.files);
-    if (!req.files || req.files.image || req.files.audio) {
-      return res.status(400).json({
-        msg: "Please upload image and audio",
+    try {
+      const { name, albumName, singerName, language, category } = req.body;
+      // const image = req.files["image"][0].filename;
+      // const audio = req.files["audio"][0].filename;
+
+      const audio = req.files["audio"] ? req.files["audio"][0] : null;
+      const image = req.files["image"] ? req.files["image"][0] : null;
+
+      // Log incoming data for debugging
+      console.log("Request Body:", req.body);
+      console.log("Uploaded Files:", req.files);
+
+      if (!audio || !image) {
+        throw new Error("Audio or image file missing");
+      }
+
+      // Log the file paths
+      console.log("Audio File Path:", audio.path);
+      console.log("Image File Path:", image.path);
+
+      const song = await prisma.songs.create({
+        data: {
+          name,
+          albumName,
+          singerName,
+          language,
+          category,
+          image: image.path,
+          audio: image.path,
+        },
       });
+
+      res.status(201).json(song);
+    } catch (error) {
+      console.error("Error processing upload:", error);
+      res
+        .status(500)
+        .json({ message: "Internal Server Error", error: error.message });
     }
-    const imageUrl = req.files.image[0].path;
-    const audioUrl = req.files.audio[0].path;
-    const { name, albumName, singerName, language, category } = req.body;
-    const upload = await prisma.songs.create({
-      data: {
-        name,
-        albumName,
-        singerName,
-        language,
-        category,
-        imageUrl,
-        audioUrl,
-      },
-    });
-    res.json(upload);
   }
 );
+
+adminRouter.get("/songs", async (req, res) => {
+  try {
+    const songs = await prisma.songs.findMany();
+    res.json(songs);
+  } catch (error) {
+    console.error("Error fetching songs", error);
+    res.status(500).json({
+      error: "internal server error",
+      error: error.message,
+    });
+  }
+});
+
 module.exports = {
   adminRouter,
 };

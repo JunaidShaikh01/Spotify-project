@@ -1,9 +1,12 @@
 import React from "react";
 import AdminDashboard from "../Components/Admin/AdminDashboard";
 import axios from "axios";
+import { redirect, useLoaderData } from "react-router-dom";
 
 export default function AdminDashboardPage() {
-  return <AdminDashboard />;
+  const loaderData = useLoaderData();
+  const songs = loaderData.songs;
+  return <AdminDashboard songs={songs} />;
 }
 
 export const addSongAction = async ({ request }) => {
@@ -15,18 +18,41 @@ export const addSongAction = async ({ request }) => {
   data.append("singerName", formData.get("singerName"));
   data.append("language", formData.get("language"));
   data.append("category", formData.get("category"));
-  data.append("audioUrl", formData.get("audioUrl"));
-  data.append("imageUrl", formData.get("imageUrl"));
+  data.append("audio", formData.get("audio"));
+  data.append("image", formData.get("image"));
 
-  console.log("Data Recieved  ", data);
+  // Log formData content
+  for (let [key, value] of data.entries()) {
+    console.log(key, value);
+  }
+
   try {
     await axios.post("http://localhost:3000/api/v1/admin/upload", data, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
+    return redirect("/adminDashboard");
   } catch (error) {
-    console.error(error);
-    return error;
+    console.error(
+      "Error uploading song:",
+      error.response ? error.response.data : error.message
+    );
+    return error.message;
+  }
+};
+
+export const loader = async () => {
+  try {
+    const { data } = await axios.get(
+      "http://localhost:3000/api/v1/admin/songs"
+    );
+    return data;
+  } catch (error) {
+    console.error(
+      "Error uploading song:",
+      error.response ? error.response.data : error.message
+    );
+    return error.message;
   }
 };

@@ -26,7 +26,7 @@ model Songs {
   singerName String
   language   String
   category   String
-  imageUrl   String
-  audioUrl   String
+  image      String
+  audio      String
   creratedAt DateTime @default(now())
 }
