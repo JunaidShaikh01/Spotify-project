@@ -58,8 +58,8 @@ adminRouter.post(
   "/upload",
   upload.fields([{ name: "image" }, { name: "audio" }]),
   async (req, res) => {
-    console.log("Request body", req.body);
-    console.log("Request file", req.files);
+    // console.log("Request body", req.body);
+    // console.log("Request file", req.files);
     try {
       const { name, albumName, singerName, language, category } = req.body;
       // const image = req.files["image"][0].filename;
@@ -69,16 +69,12 @@ adminRouter.post(
       const image = req.files["image"] ? req.files["image"][0] : null;
 
       // Log incoming data for debugging
-      console.log("Request Body:", req.body);
-      console.log("Uploaded Files:", req.files);
+      // console.log("Request Body:", req.body);
+      // console.log("Uploaded Files:", req.files);
 
       if (!audio || !image) {
         throw new Error("Audio or image file missing");
       }
-
-      // Log the file paths
-      console.log("Audio File Path:", audio.path);
-      console.log("Image File Path:", image.path);
 
       const song = await prisma.songs.create({
         data: {
@@ -88,7 +84,7 @@ adminRouter.post(
           language,
           category,
           image: image.path,
-          audio: image.path,
+          audio: audio.path,
         },
       });
 

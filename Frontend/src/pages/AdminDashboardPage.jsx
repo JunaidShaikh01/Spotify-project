@@ -1,12 +1,10 @@
 import React from "react";
 import AdminDashboard from "../Components/Admin/AdminDashboard";
 import axios from "axios";
-import { redirect, useLoaderData } from "react-router-dom";
+import { redirect } from "react-router-dom";
 
 export default function AdminDashboardPage() {
-  const loaderData = useLoaderData();
-  const songs = loaderData.songs;
-  return <AdminDashboard songs={songs} />;
+  return <AdminDashboard />;
 }
 
 export const addSongAction = async ({ request }) => {
@@ -22,6 +20,7 @@ export const addSongAction = async ({ request }) => {
   data.append("image", formData.get("image"));
 
   // Log formData content
+  console.log("data", data);
   for (let [key, value] of data.entries()) {
     console.log(key, value);
   }
@@ -32,22 +31,8 @@ export const addSongAction = async ({ request }) => {
         "Content-Type": "multipart/form-data",
       },
     });
-    return redirect("/adminDashboard");
-  } catch (error) {
-    console.error(
-      "Error uploading song:",
-      error.response ? error.response.data : error.message
-    );
-    return error.message;
-  }
-};
 
-export const loader = async () => {
-  try {
-    const { data } = await axios.get(
-      "http://localhost:3000/api/v1/admin/songs"
-    );
-    return data;
+    return redirect("/adminDashboard");
   } catch (error) {
     console.error(
       "Error uploading song:",

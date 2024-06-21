@@ -5,10 +5,8 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 import AdminLoginPage, {
   action as adminLoginAction,
 } from "./pages/AdminLoginPage";
-import AdminDashboardPage, {
-  addSongAction,
-  loader,
-} from "./pages/AdminDashboardPage";
+import AdminDashboardPage, { addSongAction } from "./pages/AdminDashboardPage";
+import AdminDashboard from "./Components/Admin/AdminDashboard";
 export default function App() {
   const router = createBrowserRouter([
     { path: "/", element: <Dashboard /> },
@@ -19,9 +17,7 @@ export default function App() {
     },
     {
       path: "/adminDashboard",
-      element: <AdminDashboardPage />,
-      action: addSongAction,
-      loader: loader,
+      element: <AdminDashboard />,
     },
   ]);
   return <RouterProvider router={router} />;

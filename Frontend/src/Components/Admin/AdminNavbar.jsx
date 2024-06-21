@@ -10,7 +10,7 @@ export default function AdminNavbar() {
   }
   console.log("Isopen ", isOpen);
   return (
-    <div className="flex w-full h-full items-center px-10 bg-[#1E1E1E] text-white justify-between relative rounded-md">
+    <div className="flex w-full h-full items-center px-10 bg-[#1E1E1E] text-white justify-between relative rounded-lg z-10">
       <FontAwesomeIcon className="text-4xl" icon={faSpotify} />
       <div className="flex gap-3 text-2xl  ">
         <p
