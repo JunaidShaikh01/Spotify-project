@@ -7,6 +7,7 @@ import AdminLoginPage, {
 } from "./pages/AdminLoginPage";
 import AdminDashboardPage, { addSongAction } from "./pages/AdminDashboardPage";
 import AdminDashboard from "./Components/Admin/AdminDashboard";
+import { RecoilRoot } from "recoil";
 export default function App() {
   const router = createBrowserRouter([
     { path: "/", element: <Dashboard /> },
@@ -20,5 +21,9 @@ export default function App() {
       element: <AdminDashboard />,
     },
   ]);
-  return <RouterProvider router={router} />;
+  return (
+    <RecoilRoot>
+      <RouterProvider router={router} />;
+    </RecoilRoot>
+  );
 }

@@ -4,6 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faX } from "@fortawesome/free-solid-svg-icons";
 import SongsList from "./SongsList";
 import axios from "axios";
+import DeleteModal from "./Modal/DeleteModal";
+import EditModal from "./Modal/EditModal";
+import { useSetRecoilState } from "recoil";
+import { deleteModalState, editModalState } from "./Modal/recoilState";
 
 export default function AdminDashboard() {
   const [songs, setSongs] = useState([]);
@@ -17,7 +21,8 @@ export default function AdminDashboard() {
     image: null,
     audio: null,
   });
-
+  const setDeleteModalState = useSetRecoilState(deleteModalState);
+  const setEditModalState = useSetRecoilState(editModalState);
   const initialFormData = {
     name: "",
     albumName: "",
@@ -113,7 +118,11 @@ export default function AdminDashboard() {
             <FontAwesomeIcon icon={faPlus} />
           </div>
         </div>
-        <SongsList songs={songs} />
+        <SongsList
+          songs={songs}
+          setDeleteModalState={setDeleteModalState}
+          setEditModalState={setEditModalState}
+        />
       </div>
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
@@ -194,6 +203,8 @@ export default function AdminDashboard() {
           </div>
         </div>
       )}
+      <DeleteModal />
+      <EditModal />
     </div>
   );
 }

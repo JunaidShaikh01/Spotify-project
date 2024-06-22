@@ -2,9 +2,21 @@ import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 
-export default function SongsList({ songs }) {
+export default function SongsList({
+  songs,
+  setDeleteModalState,
+  setEditModalState,
+}) {
   const [hoveredButton, setHoveredButton] = useState(null);
+  const handleDeleteClick = (songId) => {
+    setDeleteModalState({ isOpen: true, songId });
+    // console.log("Song Id", songId);
+  };
 
+  const handleEditClick = (song) => {
+    setEditModalState({ isOpen: true, song });
+    // console.log("Song", song);
+  };
   if (!Array.isArray(songs)) {
     return <div className="text-white">No songs available</div>;
   }
@@ -55,7 +67,7 @@ export default function SongsList({ songs }) {
                   <span className="text-[#1E1E] font-semibold">Album:</span>{" "}
                   {song.albumName}
                 </p>
-                <div>
+                <div className="mt-2">
                   <audio controls className="w-[90%] ">
                     <source
                       src={`http://localhost:3000/${song.audio}`}
@@ -69,6 +81,7 @@ export default function SongsList({ songs }) {
                   className="bg-transparent border rounded px-4 font-semibold cursor-pointer hover:bg-red-500 transform ease-in-out duration-500 flex items-center gap-2" // Added flex and gap classes
                   onMouseEnter={() => setHoveredButton("delete-" + song.id)}
                   onMouseLeave={() => setHoveredButton(null)}
+                  onClick={() => handleDeleteClick(song.id)}
                 >
                   Delete
                   {hoveredButton === "delete-" + song.id && (
@@ -82,6 +95,7 @@ export default function SongsList({ songs }) {
                   className="bg-transparent border rounded px-4 font-semibold cursor-pointer hover:bg-yellow-500 transform ease-in-out duration-500 flex items-center gap-2" // Added flex and gap classes
                   onMouseEnter={() => setHoveredButton("edit-" + song.id)}
                   onMouseLeave={() => setHoveredButton(null)}
+                  onClick={() => handleEditClick(song)}
                 >
                   Edit
                   {hoveredButton === "edit-" + song.id && (
