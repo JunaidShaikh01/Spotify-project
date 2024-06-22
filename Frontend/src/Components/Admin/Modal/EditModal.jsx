@@ -29,7 +29,7 @@ export default function EditModal() {
           <FontAwesomeIcon
             icon={faX}
             onClick={handleClose}
-            className="text-2xl mb-4"
+            className="text-2xl mb-4 hover:text-red-500 transform duration-500 ease-in-out"
           />
         </div>
 

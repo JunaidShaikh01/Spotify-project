@@ -1,6 +1,7 @@
 import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
+import style from "./SongList.module.css";
 
 export default function SongsList({
   songs,
@@ -21,7 +22,7 @@ export default function SongsList({
     return <div className="text-white">No songs available</div>;
   }
   return (
-    <div className="h-[71vh] overflow-y-auto mt-4">
+    <div className={`h-[71vh] overflow-y-auto mt-4 ${style.custom_scrollbar}`}>
       <div className="pr-8">
         <ul className="text-white mt-4 ">
           {songs.map((song) => (
@@ -68,7 +69,7 @@ export default function SongsList({
                   {song.albumName}
                 </p>
                 <div className="mt-2">
-                  <audio controls className="w-[90%] ">
+                  <audio controls className={`w-[90%] ${style.custom_audio}`}>
                     <source
                       src={`http://localhost:3000/${song.audio}`}
                       type="audio/mpeg"
@@ -78,7 +79,7 @@ export default function SongsList({
               </div>
               <div className="flex h-8 justify-between gap-8">
                 <button
-                  className="bg-transparent border rounded px-4 font-semibold cursor-pointer hover:bg-red-500 transform ease-in-out duration-500 flex items-center gap-2" // Added flex and gap classes
+                  className="bg-transparent border rounded px-4 font-semibold cursor-pointer hover:bg-red-500 transform ease-in-out duration-500 flex items-center gap-2"
                   onMouseEnter={() => setHoveredButton("delete-" + song.id)}
                   onMouseLeave={() => setHoveredButton(null)}
                   onClick={() => handleDeleteClick(song.id)}
@@ -92,7 +93,7 @@ export default function SongsList({
                   )}
                 </button>
                 <button
-                  className="bg-transparent border rounded px-4 font-semibold cursor-pointer hover:bg-yellow-500 transform ease-in-out duration-500 flex items-center gap-2" // Added flex and gap classes
+                  className="bg-transparent border rounded px-4 font-semibold cursor-pointer hover:bg-yellow-500 transform ease-in-out duration-500 flex items-center gap-2"
                   onMouseEnter={() => setHoveredButton("edit-" + song.id)}
                   onMouseLeave={() => setHoveredButton(null)}
                   onClick={() => handleEditClick(song)}

@@ -4,10 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faX } from "@fortawesome/free-solid-svg-icons";
 import SongsList from "./SongsList";
 import axios from "axios";
-import DeleteModal from "./Modal/DeleteModal";
-import EditModal from "./Modal/EditModal";
+import DeleteModal from "../Modal/DeleteModal";
+import EditModal from "../Modal/EditModal";
 import { useSetRecoilState } from "recoil";
-import { deleteModalState, editModalState } from "./Modal/recoilState";
+import { deleteModalState, editModalState } from "../Modal/recoilState";
+
 
 export default function AdminDashboard() {
   const [songs, setSongs] = useState([]);
@@ -91,7 +92,7 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="bg-black  h-full p-2 flex flex-col">
+    <div className="bg-black  p-2 flex flex-col">
       <div className="h-[10vh] bg-[#1E1E1E] rounded-lg">
         <AdminNavbar />
       </div>

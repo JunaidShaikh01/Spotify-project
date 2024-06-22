@@ -1,5 +1,5 @@
 import React from "react";
-import AdminLogin from "../Components/Admin/AdminLogin";
+import AdminLogin from "../Components/Admin/Login/AdminLogin";
 import { redirect } from "react-router-dom";
 import axios from "axios";
 

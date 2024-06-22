@@ -5,7 +5,7 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 import AdminLoginPage, {
   action as adminLoginAction,
 } from "./pages/AdminLoginPage";
-import AdminDashboard from "./Components/Admin/AdminDashboard";
+import AdminDashboard from "./Components/Admin/AdminDashboard/AdminDashboard";
 import { RecoilRoot } from "recoil";
 export default function App() {
   const router = createBrowserRouter([
@@ -22,7 +22,7 @@ export default function App() {
   ]);
   return (
     <RecoilRoot>
-      <RouterProvider router={router} />;
+      <RouterProvider router={router} />
     </RecoilRoot>
   );
 }
