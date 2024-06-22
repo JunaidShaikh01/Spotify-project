@@ -5,7 +5,6 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 import AdminLoginPage, {
   action as adminLoginAction,
 } from "./pages/AdminLoginPage";
-import AdminDashboardPage, { addSongAction } from "./pages/AdminDashboardPage";
 import AdminDashboard from "./Components/Admin/AdminDashboard";
 import { RecoilRoot } from "recoil";
 export default function App() {

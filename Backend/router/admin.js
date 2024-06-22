@@ -43,6 +43,8 @@ adminRouter.post("/login", async (req, res) => {
   });
 });
 
+
+//Multer for uploading the songs to the server
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "uploads/");
@@ -54,6 +56,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+//uploading the file to the server
 adminRouter.post(
   "/upload",
   upload.fields([{ name: "image" }, { name: "audio" }]),
@@ -98,6 +101,8 @@ adminRouter.post(
   }
 );
 
+
+//Getiing thesongs from the server
 adminRouter.get("/songs", async (req, res) => {
   try {
     const songs = await prisma.songs.findMany();
