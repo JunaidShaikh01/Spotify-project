@@ -1,14 +1,29 @@
 import React from "react";
 import { useRecoilState } from "recoil";
 import { deleteModalState } from "./recoilState";
+import axios from "axios";
 
 export default function DeleteModal() {
   const [modelSate, setModelSate] = useRecoilState(deleteModalState);
   const handleClose = () => {
     setModelSate({ isOpen: false, songId: null });
   };
-  const handleDelete = () => {
-    handleClose();
+  console.log("Modal State", modelSate);
+  const songId = parseInt(modelSate.songId, 10);
+  const handleDelete = async () => {
+    try {
+      const response = await axios.delete(
+        `http://localhost:3000/api/v1/admin/delete/${songId}`
+      );
+
+      if (response.status === 200) {
+        handleClose();
+      } else {
+        console.error("Error Deleting ", response.data);
+      }
+    } catch (error) {
+      console.error("Error Deleting ", error);
+    }
   };
 
   if (!modelSate.isOpen) return null;

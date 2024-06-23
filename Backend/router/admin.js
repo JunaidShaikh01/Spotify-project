@@ -43,7 +43,6 @@ adminRouter.post("/login", async (req, res) => {
   });
 });
 
-
 //Multer for uploading the songs to the server
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -101,7 +100,6 @@ adminRouter.post(
   }
 );
 
-
 //Getiing thesongs from the server
 adminRouter.get("/songs", async (req, res) => {
   try {
@@ -116,6 +114,36 @@ adminRouter.get("/songs", async (req, res) => {
   }
 });
 
+//Uplade Songs
+
+adminRouter.put("/update", async (req, res) => {
+  const { id, name, albumName, singerName, language, category } = req.body;
+  const updatedSong = await prisma.songs.update({
+    where: {
+      id: id,
+    },
+    data: {
+      name: name,
+      albumName: albumName,
+      singerName: singerName,
+      language: language,
+      category: category,
+    },
+  });
+  res.status(200).json({
+    msg: "Song Updated",
+    updatedSong,
+  });
+});
+
+//Delete the Sings
+
+adminRouter.delete("/delete/:id", async (req, res) => {
+  const { id } = req.params;
+  const parsedId = parseInt(id, 10); // Parse the id to an integer
+  const deletedSong = await prisma.songs.delete({ where: { id: parsedId } });
+  res.status(200).json({ msg: "Song Deleted", deletedSong });
+});
 module.exports = {
   adminRouter,
 };
