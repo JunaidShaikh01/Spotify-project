@@ -4,8 +4,11 @@ const multer = require("multer");
 const path = require("path");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const jwt = require("jsonwebtoken");
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const zod = require("zod");
+const { authMiddleware } = require("../middleware/middleware");
 const signinSchema = zod.object({
   adminId: zod.string().email(),
   password: zod.string(),
@@ -14,33 +17,42 @@ const signinSchema = zod.object({
 // admin Signin
 adminRouter.post("/login", async (req, res) => {
   const validation = signinSchema.safeParse(req.body);
+  try {
+    if (!validation.success) {
+      return res.status(400).json({
+        msg: "You sent wrong inputs",
+      });
+    }
+    const { adminId, password } = validation.data;
 
-  if (!validation.success) {
-    return res.status(400).json({
-      msg: "You sent wrong inputs",
+    const admin = await prisma.admin.findUnique({
+      where: {
+        adminId: adminId,
+      },
     });
-  }
-  const { adminId, password } = validation.data;
+    if (!admin) {
+      return res.status(404).json({
+        msg: "Admin Not found",
+      });
+    }
+    if (admin.password !== password) {
+      return res.status(404).json({
+        msg: " Password does not match",
+      });
+    }
 
-  const admin = await prisma.admin.findUnique({
-    where: {
-      adminId: adminId,
-    },
-  });
-  if (!admin) {
+    const token = jwt.sign({ adminId: admin.id }, JWT_SECRET);
+    res.status(200).json({
+      msg: "You are logged in",
+      admin,
+      token,
+    });
+  } catch (error) {
+    console.log(error);
     return res.status(404).json({
-      msg: "Admin Not found",
+      msg: `Some error has been occured ${error}`,
     });
   }
-  if (admin.password !== password) {
-    return res.status(404).json({
-      msg: " Password does not match",
-    });
-  }
-  res.status(200).json({
-    msg: "You are logged in",
-    admin,
-  });
 });
 
 //Multer for uploading the songs to the server
@@ -58,6 +70,7 @@ const upload = multer({ storage: storage });
 //uploading the file to the server
 adminRouter.post(
   "/upload",
+  authMiddleware,
   upload.fields([{ name: "image" }, { name: "audio" }]),
   async (req, res) => {
     // console.log("Request body", req.body);
@@ -101,7 +114,7 @@ adminRouter.post(
 );
 
 //Getiing thesongs from the server
-adminRouter.get("/songs", async (req, res) => {
+adminRouter.get("/songs",  async (req, res) => {
   try {
     const songs = await prisma.songs.findMany();
     res.json(songs);
@@ -116,7 +129,7 @@ adminRouter.get("/songs", async (req, res) => {
 
 //Uplade Songs
 
-adminRouter.put("/update", async (req, res) => {
+adminRouter.put("/update", authMiddleware, async (req, res) => {
   const { id, name, albumName, singerName, language, category } = req.body;
   const updatedSong = await prisma.songs.update({
     where: {
@@ -138,7 +151,7 @@ adminRouter.put("/update", async (req, res) => {
 
 //Delete the Sings
 
-adminRouter.delete("/delete/:id", async (req, res) => {
+adminRouter.delete("/delete/:id", authMiddleware, async (req, res) => {
   const { id } = req.params;
   const parsedId = parseInt(id, 10); // Parse the id to an integer
   const deletedSong = await prisma.songs.delete({ where: { id: parsedId } });

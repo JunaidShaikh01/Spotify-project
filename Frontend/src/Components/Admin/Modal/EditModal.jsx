@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { editModalState } from "./recoilState";
+import { editModalState, songsChangedState } from "../Recoil/recoilState";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
 export default function EditModal() {
   const [modelSate, setModelState] = useRecoilState(editModalState);
+  const [songsChanged, setSongsChanged] = useRecoilState(songsChangedState);
   const [formData, setFormData] = useState({
     id: "",
     name: "",
@@ -33,14 +34,6 @@ export default function EditModal() {
     setModelState({ isOpen: false, song: null });
   };
 
-  // const handleChange = () => {
-  //   const { name, value } = e.target;
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     [name]: value,
-  //   }));
-  // };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -60,6 +53,7 @@ export default function EditModal() {
         const data = response.data;
         console.log("Data", data);
         handleClose();
+        setSongsChanged(true);
       } else {
         console.error("Error updation song", response.data);
       }

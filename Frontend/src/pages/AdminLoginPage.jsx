@@ -16,10 +16,13 @@ export const action = async ({ request }) => {
   };
 
   try {
-    await axios.post("http://localhost:3000/api/v1/admin/login", {
+   const {data} =  await axios.post("http://localhost:3000/api/v1/admin/login", {
       adminId: authData.adminId,
       password: authData.password,
     });
+
+    localStorage.clear();
+    localStorage.setItem("token", data.token); 
     return redirect("/adminDashboard");
   } catch (error) {
     console.log(error);

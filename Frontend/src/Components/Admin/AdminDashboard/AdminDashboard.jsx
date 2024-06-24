@@ -6,9 +6,12 @@ import SongsList from "./SongsList";
 import axios from "axios";
 import DeleteModal from "../Modal/DeleteModal";
 import EditModal from "../Modal/EditModal";
-import { useSetRecoilState } from "recoil";
-import { deleteModalState, editModalState } from "../Modal/recoilState";
-
+import { useRecoilState, useSetRecoilState } from "recoil";
+import {
+  deleteModalState,
+  editModalState,
+  songsChangedState,
+} from "../Recoil/recoilState";
 
 export default function AdminDashboard() {
   const [songs, setSongs] = useState([]);
@@ -24,6 +27,7 @@ export default function AdminDashboard() {
   });
   const setDeleteModalState = useSetRecoilState(deleteModalState);
   const setEditModalState = useSetRecoilState(editModalState);
+  const [songsChanged, setSongsChanged] = useRecoilState(songsChangedState);
   const initialFormData = {
     name: "",
     albumName: "",
@@ -36,11 +40,17 @@ export default function AdminDashboard() {
   const handleShowModal = () => {
     setShowModal(!showModal);
   };
-
+  const token = localStorage.getItem("token");
   const fetchSongs = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/v1/admin/songs"
+        "http://localhost:3000/api/v1/admin/songs",
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
       setSongs(response.data);
     } catch (error) {
@@ -51,6 +61,13 @@ export default function AdminDashboard() {
   useEffect(() => {
     fetchSongs();
   }, []);
+
+  useEffect(() => {
+    if (songsChanged) {
+      fetchSongs();
+      setSongsChanged(false);
+    }
+  }, [songsChanged]);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -80,6 +97,7 @@ export default function AdminDashboard() {
     try {
       await axios.post("http://localhost:3000/api/v1/admin/upload", data, {
         headers: {
+          Authorization: "Bearer " + token,
           "Content-Type": "multipart/form-data",
         },
       });
