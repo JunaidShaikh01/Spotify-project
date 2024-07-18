@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Songs" ADD COLUMN     "duration" DOUBLE PRECISION NOT NULL DEFAULT 0;
