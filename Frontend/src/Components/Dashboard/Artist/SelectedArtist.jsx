@@ -57,6 +57,9 @@ export default function SelectedArtist() {
             </div>
           </div>
         </div>
+        <div>
+          
+        </div>
       </div>
     </div>
   );

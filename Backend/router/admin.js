@@ -91,19 +91,29 @@ adminRouter.post(
         throw new Error("Audio or image file missing");
       }
 
-      const song = await prisma.songs.create({
-        data: {
-          name,
-          albumName,
-          singerName,
-          language,
-          category,
-          image: image.path,
-          audio: audio.path,
-        },
-      });
+      ffmpeg.ffprobe(audio.path, async (err, metadata) => {
+        if (err) {
+          console.error("Error Processing audio file:", err);
+          return res
+            .status(500)
+            .json({ Message: "Error Processing audio file" });
+        }
+        const duration = metadata.format.duration;
 
-      res.status(201).json(song);
+        const song = await prisma.songs.create({
+          data: {
+            name,
+            albumName,
+            singerName,
+            language,
+            category,
+            image: image.path,
+            audio: audio.path,
+          },
+        });
+
+        res.status(201).json(song);
+      });
     } catch (error) {
       console.error("Error processing upload:", error);
       res
@@ -114,7 +124,7 @@ adminRouter.post(
 );
 
 //Getiing thesongs from the server
-adminRouter.get("/songs",  async (req, res) => {
+adminRouter.get("/songs", async (req, res) => {
   try {
     const songs = await prisma.songs.findMany();
     res.json(songs);
