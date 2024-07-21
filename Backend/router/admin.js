@@ -76,9 +76,8 @@ adminRouter.post(
     // console.log("Request body", req.body);
     // console.log("Request file", req.files);
     try {
-      const { name, albumName, singerName, language, category } = req.body;
-      // const image = req.files["image"][0].filename;
-      // const audio = req.files["audio"][0].filename;
+      const { name, albumName, singerName, language, category, duration } =
+        req.body;
 
       const audio = req.files["audio"] ? req.files["audio"][0] : null;
       const image = req.files["image"] ? req.files["image"][0] : null;
@@ -91,29 +90,20 @@ adminRouter.post(
         throw new Error("Audio or image file missing");
       }
 
-      ffmpeg.ffprobe(audio.path, async (err, metadata) => {
-        if (err) {
-          console.error("Error Processing audio file:", err);
-          return res
-            .status(500)
-            .json({ Message: "Error Processing audio file" });
-        }
-        const duration = metadata.format.duration;
-
-        const song = await prisma.songs.create({
-          data: {
-            name,
-            albumName,
-            singerName,
-            language,
-            category,
-            image: image.path,
-            audio: audio.path,
-          },
-        });
-
-        res.status(201).json(song);
+      const song = await prisma.songs.create({
+        data: {
+          name,
+          albumName,
+          singerName,
+          language,
+          category,
+          image: image.path,
+          audio: audio.path,
+          duration,
+        },
       });
+
+      res.status(201).json(song);
     } catch (error) {
       console.error("Error processing upload:", error);
       res
@@ -139,7 +129,7 @@ adminRouter.get("/songs", async (req, res) => {
 
 //Uplade Songs
 
-adminRouter.put("/update", authMiddleware, async (req, res) => {
+adminRouter.put("/update", async (req, res) => {
   const { id, name, albumName, singerName, language, category } = req.body;
   const updatedSong = await prisma.songs.update({
     where: {

@@ -28,6 +28,6 @@ model Songs {
   category   String
   image      String
   audio      String
-  duration   Float @default(0)
+  duration   String 
   creratedAt DateTime @default(now())
 }

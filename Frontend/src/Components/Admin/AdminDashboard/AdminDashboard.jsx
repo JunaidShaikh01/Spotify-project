@@ -88,6 +88,7 @@ export default function AdminDashboard() {
     data.append("category", formData.category);
     data.append("image", formData.image);
     data.append("audio", formData.audio);
+    data.append("duration", formData.duration);
     console.log("Form data", data);
 
     for (let [key, value] of data.entries()) {
@@ -197,6 +198,14 @@ export default function AdminDashboard() {
                 value={formData.category}
                 onChange={handleChange}
                 className="p-2 border rounded bg-transparent"
+              />
+              <input
+                type="text"
+                placeholder="Duration"
+                name="duration"
+                value={formData.duration}
+                onChange={handleChange}
+                className="p-2 border rounded col-span-2 cursor-pointer bg-transparent"
               />
               <input
                 type="file"

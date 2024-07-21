@@ -27,19 +27,19 @@ export default function SelectedArtistSongs() {
   );
 
   const generateRandomNumberWithCommas = () => {
-    const randomNumber = Math.floor(Math.random() * 900000000) + 100000; // ensures a 6-digit number
+    const randomNumber = Math.floor(Math.random() * 900000000) + 100000;
     return randomNumber.toLocaleString();
   };
 
   return (
-    <div className="px-8 py-8">
+    <div className="px-8 py-8 w-full">
       {selectedArtistSong.length === 0 ? (
         <p className="text-white">No songs found for this artist.</p>
       ) : (
-        <div className="songsSection">
+        <div className="songsSection  items-center  ">
           {selectedArtistSong.map((song, index) => (
             <div
-              className="songCard  text-white flex gap-2  mb-2"
+              className="songCard  text-white flex gap-2  mb-2 items-center"
               key={song.id}
             >
               <div className="col flex-grow-[10] basis-0">

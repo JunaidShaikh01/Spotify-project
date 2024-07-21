@@ -5,8 +5,6 @@ import Sidebar from "../SideBar/Sidebar";
 import Header from "../Header/Header";
 import axios from "axios";
 import artists from "../Data/ArtistData";
-import SelectedArtistSongs from "../Songs/SelectedArtistSongs";
-
 export default function SelectedArtist() {
   const [selectedArtist] = useRecoilState(selectedArtistState);
   const [artist, setArtist] = useState(null);
@@ -58,7 +56,6 @@ export default function SelectedArtist() {
             </div>
           </div>
         </div>
-        <SelectedArtistSongs />
       </div>
     </div>
   );

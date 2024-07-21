@@ -16,7 +16,7 @@ export default function SongsList({
 
   const handleEditClick = (song) => {
     setEditModalState({ isOpen: true, song });
-    // console.log("Song", song);
+    console.log("Song", song);
   };
   if (!Array.isArray(songs)) {
     return <div className="text-white">No songs available</div>;

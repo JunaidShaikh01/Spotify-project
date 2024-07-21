@@ -44,9 +44,16 @@ export default function EditModal() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log("Form Data", formData);
       const response = await axios.put(
         "http://localhost:3000/api/v1/admin/update",
-        formData
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          id: formData.id,
+        }
       );
 
       if (response.status === 200) {

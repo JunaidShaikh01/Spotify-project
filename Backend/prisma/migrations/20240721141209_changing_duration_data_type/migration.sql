@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Songs" ALTER COLUMN "duration" DROP DEFAULT,
+ALTER COLUMN "duration" SET DATA TYPE TEXT;
