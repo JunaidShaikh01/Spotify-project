@@ -2,6 +2,8 @@ const express = require("express");
 const dashboardRouter = express.Router();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+
+//Getting Songs at User dashboard
 dashboardRouter.get("/songs", async (req, res) => {
   try {
     const songs = await prisma.songs.findMany();

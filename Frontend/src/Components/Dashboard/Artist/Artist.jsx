@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
-import artists from "../Data/ArtistData";
 import { useRecoilState } from "recoil";
 import { selectedArtistState } from "../Recoil/recoil";
 import { useNavigate } from "react-router-dom";
+import spotifyData from "../Data/ArtistData";
 export default function Artist() {
   const [selectedArtist, setSelectedArtist] =
     useRecoilState(selectedArtistState);
@@ -25,7 +25,7 @@ export default function Artist() {
           </p>
         </div>
         <div className="flex w-full mt-8 px-2">
-          {artists.map((artist, index) => (
+          {spotifyData.artists.map((artist, index) => (
             <div
               key={index}
               className="flex flex-col gap-4  items-center w-[20%] rounded-lg hover:bg-[#2c2b2b] transform duration-300 ease-in-out "
@@ -45,7 +45,6 @@ export default function Artist() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                   
                   >
                     <FontAwesomeIcon
                       icon={faPlay}
