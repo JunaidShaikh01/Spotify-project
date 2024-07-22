@@ -9,10 +9,12 @@ const pera =
 const heading = "text-white text-lg font-medium cursor-pointer";
 const icons =
   "h-10 w-10 rounded-full bg-[#292929] hover:bg-[#868585] transform duration-300 ease-in-out  flex items-center justify-center";
+const footerNav =
+  "hover:text-white duration-300 ease-in-out transform cursor-pointer";
 export default function Footer() {
   return (
     <div className="px-8">
-      <div className="flex w-full justify-between mt-10">
+      <div className="flex w-full justify-between my-10 ">
         <div className="flex flex-col gap-2">
           <h1 className={heading}>Company</h1>
           <Link
@@ -162,13 +164,53 @@ export default function Footer() {
           </div>
         </div>
       </div>
-      {/* <div>
-        <snap></snap>
-        <snap></snap>
-        <snap></snap>
-        <snap></snap>
-        <snap></snap>
-      </div> */}
+      <div className="border-t border-[#393939] text-[#b2b2b2b2] w-full flex justify-between mb-10">
+        <div className="my-5 flex gap-4">
+          <Link
+            to="https://www.spotify.com/in-en/legal/end-user-agreement/"
+            target="_blank"
+            className={footerNav}
+          >
+            Legal
+          </Link>
+          <Link
+            to="https://www.spotify.com/in-en/safetyandprivacy"
+            target="_blank "
+            className={footerNav}
+          >
+            Safety & Privacy Center
+          </Link>
+          <Link
+            to="https://www.spotify.com/in-en/legal/privacy-policy/"
+            target="_blank"
+            className={footerNav}
+          >
+            Privacy Policy
+          </Link>
+          <Link
+            to="https://www.spotify.com/in-en/legal/cookies-policy/"
+            target="_blank"
+            className={footerNav}
+          >
+            Cookies
+          </Link>
+          <Link
+            to="https://www.spotify.com/in-en/legal/privacy-policy/#s3"
+            target="_blank"
+            className={footerNav}
+          >
+            About Ads
+          </Link>
+          <Link
+            to="https://www.spotify.com/in-en/accessibility"
+            target="_blank"
+            className={footerNav}
+          >
+            Accessibility
+          </Link>
+        </div>
+        <span className="my-5">Accessibility © 2024 Spotify AB</span>
+      </div>
     </div>
   );
 }
