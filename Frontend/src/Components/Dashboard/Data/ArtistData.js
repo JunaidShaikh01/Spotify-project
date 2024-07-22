@@ -10,6 +10,12 @@ import DeljitSinghRedio from "../../../Pitchers/Redio/Deljit Dosanjh.jpg";
 import ShreyaGhosalRedio from "../../../Pitchers/Redio/Shreya Ghosal.jpg";
 import UditNarayanRedio from "../../../Pitchers/Redio/Udit narayan redio.jpg";
 
+import top50Global from "../../../Pitchers/FeaturedCharts/Top 50 Global.jpg";
+import top50India from "../../../Pitchers/FeaturedCharts/Top 50 India.jpg";
+import topIndia from "../../../Pitchers/FeaturedCharts/Top india.jpg";
+import topSongsGlobal from "../../../Pitchers/FeaturedCharts/Top Songs Global.jpg";
+import topSongsIndia from "../../../Pitchers/FeaturedCharts/Top Songs India.jpg";
+
 const artists = [
   {
     image: ArRehman,
@@ -66,9 +72,42 @@ const Redio = [
   },
 ];
 
+const FeaturedCharts = [
+  {
+    id: "1",
+    image: top50India,
+    chart: "Top50-India",
+    title: "Your daily update of the most played tracks right now - India",
+  },
+  {
+    id: "2",
+    image: topSongsIndia,
+    chart: "TopSongs-India",
+    title: "Your weekly update of the most played tracks right now - India.",
+  },
+  {
+    id: "3",
+    image: topIndia,
+    chart: "Viral50-India",
+    title: "Your daily update of the most viral tracks right now - India",
+  },
+  {
+    id: "4",
+    image: top50Global,
+    chart: "Top50-Global",
+    title: "Your daily update of the most played tracks right now - Global.",
+  },
+  {
+    id: "5",
+    image: topSongsGlobal,
+    chart: "TopSongs-Global",
+    title: "Your weekly update of the most played tracks right now - Global",
+  },
+];
 const spotifyData = {
   artists,
   Redio,
+  FeaturedCharts
 };
 
 export default spotifyData;
