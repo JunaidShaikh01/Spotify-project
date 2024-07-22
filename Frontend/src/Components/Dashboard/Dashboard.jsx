@@ -5,6 +5,7 @@ import Artist from "./Artist/Artist";
 import PopularAlbum from "./PopularAlbum/PopularAlbum";
 import Redio from "./Redio/Redio";
 import FeaturedCharts from "./Featured Charts/FeaturedCharts";
+import Footer from "./Footer/Footer";
 
 export default function Dashboard() {
   return (
@@ -17,6 +18,7 @@ export default function Dashboard() {
           <PopularAlbum />
           <Redio />
           <FeaturedCharts />
+          <Footer />
         </div>
       </div>
     </div>
