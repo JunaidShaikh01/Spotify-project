@@ -11,7 +11,7 @@ export default function SongsList({
   const [hoveredButton, setHoveredButton] = useState(null);
   const handleDeleteClick = (songId) => {
     setDeleteModalState({ isOpen: true, songId });
-    // console.log("Song Id", songId);
+   
   };
 
   const handleEditClick = (song) => {
