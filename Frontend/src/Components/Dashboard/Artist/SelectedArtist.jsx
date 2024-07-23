@@ -4,7 +4,8 @@ import { selectedArtistState } from "../Recoil/recoil";
 import Sidebar from "../SideBar/Sidebar";
 import Header from "../Header/Header";
 import axios from "axios";
-import artists from "../Data/ArtistData";
+import spotifyData from "../Data/ArtistData";
+import SelectedArtistSongs from "../Songs/SelectedArtistSongs";
 export default function SelectedArtist() {
   const [selectedArtist] = useRecoilState(selectedArtistState);
   const [artist, setArtist] = useState(null);
@@ -30,7 +31,7 @@ export default function SelectedArtist() {
 
   console.log("Artist:", artist);
 
-  const filteredBanner = artists.find(
+  const filteredBanner = spotifyData.artists.find(
     (artist) => artist.artist === selectedArtist
   );
 
@@ -56,6 +57,7 @@ export default function SelectedArtist() {
             </div>
           </div>
         </div>
+        <SelectedArtistSongs/>
       </div>
     </div>
   );

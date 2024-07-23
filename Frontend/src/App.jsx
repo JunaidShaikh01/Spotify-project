@@ -8,6 +8,7 @@ import AdminLoginPage, {
 import AdminDashboard from "./Components/Admin/AdminDashboard/AdminDashboard";
 import { RecoilRoot } from "recoil";
 import SelectedArtist from "./Components/Dashboard/Artist/SelectedArtist";
+import SelectedAlbum from "./Components/Dashboard/PopularAlbum/SelectedAlbum";
 export default function App() {
   const router = createBrowserRouter([
     { path: "/", element: <Dashboard /> },
@@ -23,6 +24,10 @@ export default function App() {
     {
       path: "/selectedArtist",
       element: <SelectedArtist />,
+    },
+    {
+      path: "/selectedAlbum",
+      element: <SelectedAlbum />,
     },
   ]);
   return (

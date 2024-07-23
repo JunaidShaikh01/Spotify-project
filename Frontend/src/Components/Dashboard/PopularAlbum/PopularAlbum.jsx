@@ -3,9 +3,14 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { useRecoilState } from "recoil";
+import { selectedAlbumState } from "../Recoil/recoil";
+import { useNavigate } from "react-router-dom";
 export default function PopularAlbum() {
   const [fetchedSongs, setFetchedSongs] = useState([]);
   const [hoveredAlbum, setHoveredAlbum] = useState(null);
+  const [selectedAlbum, setSelectedAlbum] = useRecoilState(selectedAlbumState);
+  const navigate = useNavigate();
   const fetchAlbums = async () => {
     const response = await axios.get(
       "http://localhost:3000/api/v1/dashboard/songs"
@@ -17,6 +22,12 @@ export default function PopularAlbum() {
     fetchAlbums();
   }, []);
 
+  const clickHandle = (albumName) => {
+    setSelectedAlbum(albumName);
+    navigate("/selectedAlbum");
+  };
+
+  // const SingerName = fetchedSongs[4].singerName.split(" , ")[0]
   return (
     <div className="mt-10">
       <div className="flex justify-between px-4 mt-4">
@@ -32,6 +43,7 @@ export default function PopularAlbum() {
             className="flex flex-col  w-[20%]  items-center  px-2 py-2 mb-4 text-white hover:bg-[#2c2b2b] transform duration-300 ease-in-out rounded-lg "
             onMouseEnter={() => setHoveredAlbum(song.id)}
             onMouseLeave={() => setHoveredAlbum(null)}
+            onClick={() => clickHandle(song.albumName)}
           >
             <div className="">
               <div className="relative w-full">
@@ -60,7 +72,11 @@ export default function PopularAlbum() {
                 <h3 className="text-lg font-semibold text-white">
                   {song.albumName}
                 </h3>
-                <p className="text-[#c0bfbf]">{song.singerName}</p>
+                <p className="text-[#c0bfbf]">
+                  {song.singerName.length > 1
+                    ? song.singerName.split(" , ")[0]
+                    : song.singerName}
+                </p>
               </div>
             </div>
           </div>
