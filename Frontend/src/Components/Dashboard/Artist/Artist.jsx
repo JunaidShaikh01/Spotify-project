@@ -11,7 +11,7 @@ export default function Artist() {
     useRecoilState(selectedArtistState);
   const [hoveredArtist, setHoveredArtist] = useState(null);
   const navigate = useNavigate();
-  console.log("Selected Artist:-", selectedArtist);
+ 
   const handleClick = (artist) => {
     setSelectedArtist(artist);
     navigate("/selectedArtist");

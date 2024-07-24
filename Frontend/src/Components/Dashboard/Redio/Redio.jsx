@@ -3,8 +3,18 @@ import spotifyData from "../Data/ArtistData";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { useRecoilState } from "recoil";
+import { selectedRedioState } from "../Recoil/recoil";
+import { useNavigate } from "react-router-dom";
 export default function Redio() {
   const [hoveredAlbum, setHoveredAlbum] = useState(null);
+  const [selectedRedio, setSelectedRedio] = useRecoilState(selectedRedioState);
+  const navigate = useNavigate();
+  const onClickHandler = (id) => {
+    navigate("/selectedRedio");
+    setSelectedRedio(id);
+  };
+  console.log("Selcted redio id ", selectedRedio);
   return (
     <div className="mt-10">
       <div className="flex justify-between px-4 mt-4">
@@ -20,6 +30,7 @@ export default function Redio() {
             className="flex flex-col  w-[20%]  items-center  px-2 py-2 mb-4 text-white hover:bg-[#2c2b2b] transform duration-300 ease-in-out rounded-lg "
             onMouseEnter={() => setHoveredAlbum(Redio.id)}
             onMouseLeave={() => setHoveredAlbum(null)}
+            onClick={() => onClickHandler(Redio.id)}
           >
             <div className="">
               <div className="relative w-full">
@@ -48,7 +59,9 @@ export default function Redio() {
                 <h3 className="text-md font-semibold text-white">
                   {Redio.Redio}
                 </h3>
-                <p className="text-[#c0bfbf] text-base">{Redio.Artists}</p>
+                <p className="text-[#c0bfbf] text-base line-clamp-2">
+                  {Redio.Artists}
+                </p>
               </div>
             </div>
           </div>
