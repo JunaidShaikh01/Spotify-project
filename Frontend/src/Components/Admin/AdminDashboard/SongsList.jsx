@@ -11,7 +11,6 @@ export default function SongsList({
   const [hoveredButton, setHoveredButton] = useState(null);
   const handleDeleteClick = (songId) => {
     setDeleteModalState({ isOpen: true, songId });
-   
   };
 
   const handleEditClick = (song) => {
@@ -63,11 +62,20 @@ export default function SongsList({
                       {song.category}
                     </p>
                   </div>
+                  <div className="flex flex-col">
+                    <p className="mb-2">
+                      <span className="text-[#1E1E] font-semibold">Album:</span>{" "}
+                      {song.albumName}
+                    </p>
+                    <p className="mb-2">
+                      <span className="text-[#1E1E] font-semibold">
+                        Region:
+                      </span>{" "}
+                      {song.Region}
+                    </p>
+                  </div>
                 </div>
-                <p>
-                  <span className="text-[#1E1E] font-semibold">Album:</span>{" "}
-                  {song.albumName}
-                </p>
+
                 <div className="mt-2">
                   <audio controls className={`w-[90%] ${style.custom_audio}`}>
                     <source

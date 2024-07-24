@@ -55,8 +55,6 @@ adminRouter.post("/login", async (req, res) => {
   }
 });
 
-
-
 //Multer for uploading the songs to the server
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -69,8 +67,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-
-
 //uploading the file to the server
 adminRouter.post(
   "/upload",
@@ -80,8 +76,15 @@ adminRouter.post(
     // console.log("Request body", req.body);
     // console.log("Request file", req.files);
     try {
-      const { name, albumName, singerName, language, category, duration } =
-        req.body;
+      const {
+        name,
+        albumName,
+        singerName,
+        language,
+        category,
+        duration,
+        Region,
+      } = req.body;
 
       const audio = req.files["audio"] ? req.files["audio"][0] : null;
       const image = req.files["image"] ? req.files["image"][0] : null;
@@ -104,6 +107,7 @@ adminRouter.post(
           image: image.path,
           audio: audio.path,
           duration,
+          Region,
         },
       });
 
@@ -116,7 +120,6 @@ adminRouter.post(
     }
   }
 );
-
 
 //Geting songs from the server
 adminRouter.get("/songs", async (req, res) => {
@@ -132,11 +135,9 @@ adminRouter.get("/songs", async (req, res) => {
   }
 });
 
-
-
 //Uplode Songs
 adminRouter.put("/update", async (req, res) => {
-  const { id, name, albumName, singerName, language, category } = req.body;
+  const { id, name, albumName, singerName, language, category, Region } = req.body;
   const updatedSong = await prisma.songs.update({
     where: {
       id: id,
@@ -147,6 +148,7 @@ adminRouter.put("/update", async (req, res) => {
       singerName: singerName,
       language: language,
       category: category,
+      Region : Region,
     },
   });
   res.status(200).json({
@@ -154,7 +156,6 @@ adminRouter.put("/update", async (req, res) => {
     updatedSong,
   });
 });
-
 
 //Delete the Sings
 adminRouter.delete("/delete/:id", authMiddleware, async (req, res) => {

@@ -28,6 +28,7 @@ model Songs {
   category   String
   image      String
   audio      String
-  duration   String 
+  duration   String
+  Region     String @default("Indian")
   creratedAt DateTime @default(now())
 }

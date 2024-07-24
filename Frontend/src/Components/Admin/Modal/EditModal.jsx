@@ -16,6 +16,7 @@ export default function EditModal() {
     singerName: "",
     language: "",
     category: "",
+    Region: "",
   });
   console.log("Modal state", modelSate);
   useEffect(() => {
@@ -27,6 +28,7 @@ export default function EditModal() {
         singerName: modelSate.song.singerName,
         language: modelSate.song.language,
         category: modelSate.song.category,
+        Region: modelSate.song.Region,
       });
     }
   }, [modelSate.song]);
@@ -130,6 +132,14 @@ export default function EditModal() {
                 placeholder="Category"
                 name="category"
                 value={formData.category}
+                onChange={handleChange}
+                className="p-2 border rounded bg-transparent"
+              />
+              <input
+                type="text"
+                placeholder="Region"
+                name="Region"
+                value={formData.Region}
                 onChange={handleChange}
                 className="p-2 border rounded bg-transparent"
               />
