@@ -6,6 +6,7 @@ import Sidebar from "../SideBar/Sidebar";
 import Header from "../Header/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpotify } from "@fortawesome/free-brands-svg-icons";
+import SelectedCartSongs from "./SelectedCartSongs";
 
 export default function SelectedCarts() {
   const [selectedCart] = useRecoilState(selectedCertState);
@@ -37,16 +38,11 @@ export default function SelectedCarts() {
                   <FontAwesomeIcon icon={faSpotify} />
                   <p>Spotify</p>
                 </div>
-
-                {/* <div>
-                  <p className="text-white">
-                    {generateRandomNumberWithCommas()} Save
-                  </p>
-                </div> */}
               </div>
             </div>
           </div>
         </div>
+        <SelectedCartSongs/>
       </div>
     </div>
   );

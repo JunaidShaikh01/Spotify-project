@@ -78,36 +78,42 @@ const FeaturedCharts = [
     image: top50India,
     chart: "Top50-India",
     title: "Your daily update of the most played tracks right now - India",
+    region: "Indian",
   },
+
   {
     id: "2",
     image: topSongsIndia,
     chart: "TopSongs-India",
     title: "Your weekly update of the most played tracks right now - India.",
+    region: "Indian",
   },
   {
     id: "3",
     image: topIndia,
     chart: "Viral50-India",
     title: "Your daily update of the most viral tracks right now - India",
+    region: "Indian",
   },
   {
     id: "4",
     image: top50Global,
     chart: "Top50-Global",
     title: "Your daily update of the most played tracks right now - Global.",
+    region: "Global",
   },
   {
     id: "5",
     image: topSongsGlobal,
     chart: "TopSongs-Global",
     title: "Your weekly update of the most played tracks right now - Global",
+    region: "Global",
   },
 ];
 const spotifyData = {
   artists,
   Redio,
-  FeaturedCharts
+  FeaturedCharts,
 };
 
 export default spotifyData;

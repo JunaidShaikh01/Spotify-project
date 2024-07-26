@@ -3,19 +3,22 @@ import spotifyData from "../Data/ArtistData";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
-import { useRecoilState } from "recoil";
-import { selectedCertState } from "../Recoil/recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { selectedCertState, selectedRegionState } from "../Recoil/recoil";
 import { useNavigate } from "react-router-dom";
 
 export default function FeaturedCharts() {
   const [selectedCart, setSelectedCart] = useRecoilState(selectedCertState);
   const [hoveredAlbum, setHoveredAlbum] = useState(null);
+  const setSelectedRegionState = useSetRecoilState(selectedRegionState);
   const navigate = useNavigate();
-  const onclickHandler = (id) => {
+
+  const clickHandler = (id, region) => {
     setSelectedCart(id);
+    setSelectedRegionState(region);
     navigate("/selectedCarts");
   };
-  console.log("Selected Charts", selectedCart);
+
   return (
     <div className="mt-10">
       <div className="flex justify-between px-4 mt-4">
@@ -31,7 +34,9 @@ export default function FeaturedCharts() {
             className="flex flex-col  w-[20%]  items-center  px-2 py-2 mb-4 text-white hover:bg-[#2c2b2b] transform duration-300 ease-in-out rounded-lg "
             onMouseEnter={() => setHoveredAlbum(FeaturedCharts.id)}
             onMouseLeave={() => setHoveredAlbum(null)}
-            onClick={() => onclickHandler(FeaturedCharts.id)}
+            onClick={() =>
+              clickHandler(FeaturedCharts.id, FeaturedCharts.region)
+            }
           >
             <div className="">
               <div className="relative w-full">

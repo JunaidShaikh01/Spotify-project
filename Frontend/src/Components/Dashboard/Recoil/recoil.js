@@ -19,3 +19,8 @@ export const selectedRedioState = atom({
   key: "selectedRedioState",
   default: null,
 });
+
+export const selectedRegionState = atom({
+  key: "selectedRegionState",
+  default: null,
+});
