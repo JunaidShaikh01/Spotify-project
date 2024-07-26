@@ -10,6 +10,7 @@ import { RecoilRoot } from "recoil";
 import SelectedArtist from "./Components/Dashboard/Artist/SelectedArtist";
 import SelectedAlbum from "./Components/Dashboard/PopularAlbum/SelectedAlbum";
 import SelectedRedio from "./Components/Dashboard/Redio/SelectedRedio";
+import SelectedCarts from "./Components/Dashboard/Featured Charts/SelectedCarts";
 
 export default function App() {
   const router = createBrowserRouter([
@@ -34,6 +35,10 @@ export default function App() {
     {
       path: "/selectedRedio",
       element: <SelectedRedio />,
+    },
+    {
+      path: "/selectedCarts",
+      element: <SelectedCarts />,
     },
   ]);
   return (
