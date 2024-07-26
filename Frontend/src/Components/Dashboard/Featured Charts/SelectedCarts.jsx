@@ -1,6 +1,6 @@
 import React from "react";
 import { useRecoilState } from "recoil";
-import { selectedRedioState } from "../Recoil/recoil";
+import { selectedCertState } from "../Recoil/recoil";
 import spotifyData from "../Data/ArtistData";
 import Sidebar from "../SideBar/Sidebar";
 import Header from "../Header/Header";
@@ -8,12 +8,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpotify } from "@fortawesome/free-brands-svg-icons";
 
 export default function SelectedCarts() {
-  const [selectedCart] = useRecoilState(selectedRedioState);
+  const [selectedCart] = useRecoilState(selectedCertState);
   const cartData = spotifyData.FeaturedCharts.find(
     (data) => data.id === selectedCart
   );
 
-  console.log("Created data:", cartData);
   return (
     <div className="bg-black h-screen w-screen   p-2 flex gap-2">
       <Sidebar />

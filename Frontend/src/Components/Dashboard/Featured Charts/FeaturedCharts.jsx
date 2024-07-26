@@ -6,15 +6,16 @@ import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { useRecoilState } from "recoil";
 import { selectedCertState } from "../Recoil/recoil";
 import { useNavigate } from "react-router-dom";
+
 export default function FeaturedCharts() {
   const [selectedCart, setSelectedCart] = useRecoilState(selectedCertState);
   const [hoveredAlbum, setHoveredAlbum] = useState(null);
   const navigate = useNavigate();
-  const onclickHandler = (FeaturedCharts) => {
-    setSelectedCart(FeaturedCharts);
+  const onclickHandler = (id) => {
+    setSelectedCart(id);
     navigate("/selectedCarts");
   };
-
+  console.log("Selected Charts", selectedCart);
   return (
     <div className="mt-10">
       <div className="flex justify-between px-4 mt-4">
