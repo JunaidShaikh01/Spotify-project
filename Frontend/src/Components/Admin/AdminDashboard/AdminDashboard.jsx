@@ -25,6 +25,8 @@ export default function AdminDashboard() {
     category: "",
     image: null,
     audio: null,
+    duration: "",
+    Region: "",
   });
   const setDeleteModalState = useSetRecoilState(deleteModalState);
   const setEditModalState = useSetRecoilState(editModalState);
@@ -37,6 +39,8 @@ export default function AdminDashboard() {
     category: "",
     image: null,
     audio: null,
+    duration: "",
+    Region: "",
   };
 
   const handleShowModal = () => {
@@ -152,8 +156,7 @@ export default function AdminDashboard() {
       <AnimatePresence>
         {showModal && (
           <motion.div
-            // Ensured motion.div is inside AnimatePresence
-            key="modal" // Added a key to help React identify the component
+            key="modal"
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -30 }}

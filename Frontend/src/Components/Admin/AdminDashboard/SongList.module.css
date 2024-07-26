@@ -1,36 +1,32 @@
-/* Custom Scrollbar Styles */
-.custom_scrollbar {
+Custom Scrollbar Styles .custom_scrollbar {
   scrollbar-width: thin;
   scrollbar-color: #888 #0000;
 }
 
-/* For WebKit browsers */
-.custom_scrollbar::-webkit-scrollbar {
+For WebKit browsers .custom_scrollbar::-webkit-scrollbar {
   background: #555;
-  width: 12px; /* Changed scrollbar width */
+  width: 12px;
 }
 
 .custom_scrollbar::-webkit-scrollbar-track {
-  background: #0000; /* Changed track background color */
+  background: #0000;
 }
 
 .custom_scrollbar::-webkit-scrollbar-thumb {
-  background: #0000; /* Changed thumb color */
-  border-radius: 20px; /* Added border radius */
-  /* border: 3px solid #f1f1f1;  */
+  background: #0000;
+  border-radius: 20px;
 }
 
 .custom_scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Changed thumb hover color */
+  background: #555;
 }
 
-/* Custom Audio Player Styles */
 .custom_audio {
-  background: #0000; /* Changed audio player background color */
-  padding: 5px; /* Removed padding */
-  border: none; /* Removed border */
-  outline: none; /* Removed outline */
-  box-shadow: none; /* Removed box shadow */
+  background: #0000;
+  padding: 5px;
+  border: none;
+  outline: none;
+  box-shadow: none;
 }
 
 .custom_audio::-webkit-media-controls-panel {
@@ -40,9 +36,9 @@
 }
 
 .custom_audio::-webkit-media-controls-enclosure {
-  border: none; /* Remove border */
-  padding: 0; /* Remove padding */
-  margin: 0; /* Remove margin */
+  border: none;
+  padding: 0;
+  margin: 0;
 }
 
 .custom_audio::-webkit-media-controls-play-button,
@@ -54,17 +50,17 @@
 
 .custom_audio::-webkit-media-controls-time-remaining-display,
 .custom_audio::-webkit-media-controls-current-time-display {
-  text-shadow: none; /* Remove text shadow */
-  color: white; /* Optionally set the text color to improve visibility */
+  text-shadow: none;
+  color: white;
 }
 
 .custom_audio::-webkit-media-controls-enclosure {
-  border: none; /* Remove border */
-  padding: 0; /* Remove padding */
-  margin: 0; /* Remove margin */
+  border: none;
+  padding: 0;
+  margin: 0;
 }
 .custom_audio::-webkit-media-controls-overlay-enclosure {
-  border: none; /* Remove border */
-  padding: 0; /* Remove padding */
-  margin: 0; /* Remove margin */
+  border: none;
+  padding: 0;
+  margin: 0;
 }

@@ -9,6 +9,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 const zod = require("zod");
 const { authMiddleware } = require("../middleware/middleware");
+
 const signinSchema = zod.object({
   adminId: zod.string().email(),
   password: zod.string(),
