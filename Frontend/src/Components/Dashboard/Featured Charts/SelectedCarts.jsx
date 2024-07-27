@@ -13,6 +13,10 @@ export default function SelectedCarts() {
   const cartData = spotifyData.FeaturedCharts.find(
     (data) => data.id === selectedCart
   );
+  const generateRandomNumberWithCommas = () => {
+    const randomNumber = Math.floor(Math.random() * 900000000) + 100000;
+    return randomNumber.toLocaleString();
+  };
 
   return (
     <div className="bg-black h-screen w-screen   p-2 flex gap-2">
@@ -32,17 +36,27 @@ export default function SelectedCarts() {
               <h1 className="text-white text-[5rem] drop-shadow-xl font-extrabold">
                 {cartData.chart}
               </h1>
-              <p className="text-white text-lg">{cartData.title}</p>
+              <p className="text-[#b2b2b2] text-lg">{cartData.title}</p>
               <div className=" flex items-center h-full gap-2">
-                <div className="flex items-center">
+                <div className="flex items-center gap-1 text-white">
                   <FontAwesomeIcon icon={faSpotify} />
                   <p>Spotify</p>
+                </div>
+                <div>
+                  <p className="text-white">
+                    {generateRandomNumberWithCommas()} Saves
+                  </p>
+                </div>
+                <div>
+                  <p className="text-white">
+                    {Math.floor(Math.random() * 10) + 1} new entries
+                  </p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <SelectedCartSongs/>
+        <SelectedCartSongs />
       </div>
     </div>
   );
