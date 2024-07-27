@@ -43,7 +43,7 @@ const Redio = [
   {
     id: "1",
     Redio: "Arijit Singh",
-    Artists: "Neha Kakkar , Prithem , KK",
+    Artists: "Shubh , Sidhu Moose Wala , KK",
     image: ArijitSinghRedio,
   },
   {

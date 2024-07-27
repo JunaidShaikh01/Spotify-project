@@ -1,11 +1,12 @@
 import React from "react";
 import { useRecoilState } from "recoil";
 import { selectedRedioState } from "../Recoil/recoil";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpotify } from "@fortawesome/free-brands-svg-icons";
 import spotifyData from "../Data/ArtistData";
 import Sidebar from "../SideBar/Sidebar";
 import Header from "../Header/Header";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpotify } from "@fortawesome/free-brands-svg-icons";
+import SelectedRedioSong from "./SelectedRedioSong";
 
 export default function SelectedRedio() {
   const [selectedRedio] = useRecoilState(selectedRedioState);
@@ -18,7 +19,7 @@ export default function SelectedRedio() {
     return randomNumber.toLocaleString();
   };
 
-  console.log("Filterd Data", filteredData);
+  // console.log("Filterd Data", filteredData);
   return (
     <div className="bg-black h-screen w-screen   p-2 flex gap-2">
       <Sidebar />
@@ -39,7 +40,7 @@ export default function SelectedRedio() {
               </h1>
               <p className="text-white text-lg">{filteredData.Artists}</p>
               <div className=" flex items-center h-full gap-2">
-                <div className="flex items-center">
+                <div className="flex items-center text-white gap-1">
                   <FontAwesomeIcon icon={faSpotify} />
                   <p>Spotify</p>
                 </div>
@@ -53,6 +54,7 @@ export default function SelectedRedio() {
             </div>
           </div>
         </div>
+        <SelectedRedioSong Redio={filteredData.Redio} />
       </div>
     </div>
   );
