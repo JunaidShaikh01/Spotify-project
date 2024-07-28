@@ -10,6 +10,8 @@ import SelectedArtist from "./Components/Dashboard/Artist/SelectedArtist";
 import SelectedAlbum from "./Components/Dashboard/PopularAlbum/SelectedAlbum";
 import SelectedRedio from "./Components/Dashboard/Redio/SelectedRedio";
 import SelectedCarts from "./Components/Dashboard/Featured Charts/SelectedCarts";
+import Login from "./Components/Dashboard/Login/Login";
+import Signup from "./Components/Dashboard/Signup/Signup";
 
 export default function App() {
   const router = createBrowserRouter([
@@ -34,6 +36,14 @@ export default function App() {
     {
       path: "/selectedRedio",
       element: <SelectedRedio />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/Signup",
+      element: <Signup />,
     },
     {
       path: "/selectedCarts",
