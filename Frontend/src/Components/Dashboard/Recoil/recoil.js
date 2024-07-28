@@ -24,3 +24,16 @@ export const selectedRegionState = atom({
   key: "selectedRegionState",
   default: null,
 });
+
+export const formDataState = atom({
+  key: "formDataState",
+  default: {
+    email: "",
+    password: "",
+    name: "",
+    year: "",
+    month: "",
+    day: "",
+    gender: "",
+  },
+});
