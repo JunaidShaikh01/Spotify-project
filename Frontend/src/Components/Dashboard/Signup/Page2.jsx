@@ -21,7 +21,7 @@ export default function Page2({ setStep }) {
 
   return (
     <div className="bg-[#121212] h-screen w-full flex  justify-center">
-      <div className="w-[28vw]   text-center flex gap-8 flex-col justify-center">
+      <div className="w-[30vw]   text-center flex gap-8 flex-col justify-center">
         <FontAwesomeIcon icon={faSpotify} className="text-white text-[3rem]" />
         <div className="relative">
           <div className="relative z-10 p-4">

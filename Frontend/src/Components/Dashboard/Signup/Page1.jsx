@@ -13,14 +13,14 @@ export default function Page1({ setStep }) {
       ...formData,
       email: emailRef.current.value,
     });
-    
+
     setStep(2);
   };
 
   console.log("Form data", formData);
   return (
     <div className="bg-[#121212] h-screen w-full flex  justify-center">
-      <div className="w-[28vw]   text-center flex flex-col justify-center">
+      <div className="w-[30vw]   text-center flex flex-col justify-center">
         <div className="flex flex-col items-center  text-white">
           <FontAwesomeIcon icon={faSpotify} className="text-[3rem]" />
           <h1 className="text-[3rem] font-semibold">

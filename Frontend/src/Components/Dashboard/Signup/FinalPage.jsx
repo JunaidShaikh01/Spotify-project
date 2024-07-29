@@ -7,7 +7,7 @@ import { useRecoilState } from "recoil";
 import { formDataState } from "../Recoil/recoil";
 
 export default function FinalPage() {
-    const [formData] = useRecoilState(formDataState);
+  const [formData] = useRecoilState(formDataState);
   const navigate = useNavigate();
   const handleNext = () => {
     console.log("Form data", formData);
@@ -58,7 +58,11 @@ export default function FinalPage() {
                 <div className="text-start">
                   <p className="text-white">
                     By clicking on ‘Sign up’, you agree to Spotify’s{" "}
-                    <a href="" className="text-[#1ED760] underline">
+                    <a
+                      href="https://www.spotify.com/in-en/legal/end-user-agreement/"
+                      target="_blank"
+                      className="text-[#1ED760] underline"
+                    >
                       {" "}
                       Terms and Conditions of Use.
                     </a>
@@ -68,7 +72,11 @@ export default function FinalPage() {
                   <p className="text-white">
                     To learn more about how Spotify collects, uses, shares and
                     protects your personal data, please see{" "}
-                    <a href="" className="text-[#1ED760] underline">
+                    <a
+                      href="https://www.spotify.com/in-en/legal/privacy-policy/"
+                      target="_blank"
+                      className="text-[#1ED760] underline"
+                    >
                       Spotify’s Privacy Policy.
                     </a>
                   </p>

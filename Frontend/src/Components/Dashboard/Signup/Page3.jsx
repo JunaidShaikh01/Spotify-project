@@ -34,8 +34,11 @@ export default function Page3({ setStep }) {
   console.log("selected option", selectedOption);
   return (
     <div className="bg-[#121212] w-full flex  justify-center">
-      <div className="w-[28vw]   text-center flex gap-8 flex-col justify-center">
-        <FontAwesomeIcon icon={faSpotify} className="text-white text-[3rem]" />
+      <div className="w-[30vw]   text-center flex gap-8 flex-col justify-center mt-4">
+        <FontAwesomeIcon
+          icon={faSpotify}
+          className="text-white text-[2.5rem]"
+        />
         <div className="relative">
           <div className="relative z-10 p-4">
             <div className="flex items-center gap-6">
@@ -65,7 +68,7 @@ export default function Page3({ setStep }) {
                   ref={nameRef}
                   required
                   name="name"
-                  className=" w-full bg-transparent border-gray-400 text-lg text-white border rounded-md py-2 pl-4 placeholder:text-[#b2b2b2]"
+                  className=" w-full mt-4 bg-transparent border-gray-400 text-lg text-white border rounded-md py-2 pl-4 placeholder:text-[#b2b2b2]"
                 />
               </div>
               <div className="dateOfBirthSection text-start">
@@ -90,14 +93,14 @@ export default function Page3({ setStep }) {
                     required
                     name="year"
                     placeholder="yyyy"
-                    className="w-[30%] bg-transparent border-gray-400 text-lg text-white border text-center rounded-md h-10 placeholder:text-[#b2b2b2]"
+                    className="w-[30%] mt-4 bg-transparent border-gray-400 text-lg text-white border text-center rounded-md h-10 placeholder:text-[#b2b2b2]"
                   />
                   <select
                     ref={monthRef}
                     required
                     name="month"
                     placeholder="Month"
-                    className="bg-transparent border-gray-400 h-10 text-lg text-[#b2b2b2] border  placeholder:text-[#b2b2b2] rounded-md w-full px-2"
+                    className="bg-transparent mt-4 border-gray-400 h-10 text-lg text-[#b2b2b2] border  placeholder:text-[#b2b2b2] rounded-md w-full px-2"
                   >
                     <option value="" className="bg-[#121212] text-white">
                       Month
@@ -144,7 +147,7 @@ export default function Page3({ setStep }) {
                     name="day"
                     ref={dayRef}
                     placeholder="dd"
-                    className="w-[20%] bg-transparent border-gray-400 text-lg text-white border text-center rounded-md h-10 placeholder:text-[#b2b2b2]"
+                    className="w-[20%] mt-4 bg-transparent border-gray-400 text-lg text-white border text-center rounded-md h-10 placeholder:text-[#b2b2b2]"
                   />
                 </div>
               </div>
@@ -158,7 +161,7 @@ export default function Page3({ setStep }) {
                   We use your gender to help personalise our content
                   recommendations and ads for you.
                 </p>
-                <div className="flex justify-between">
+                <div className="flex justify-between mt-4">
                   <div className="flex gap-2">
                     <input
                       type="radio"
