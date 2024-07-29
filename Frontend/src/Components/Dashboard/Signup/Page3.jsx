@@ -24,7 +24,7 @@ export default function Page3({ setStep }) {
       gender: selectedOption,
     });
 
-    setStep(3);
+    setStep(4);
     console.log("Form data", formData);
   };
 
@@ -33,7 +33,7 @@ export default function Page3({ setStep }) {
   };
   console.log("selected option", selectedOption);
   return (
-    <div className="bg-[#121212]   w-full flex  justify-center">
+    <div className="bg-[#121212] w-full flex  justify-center">
       <div className="w-[28vw]   text-center flex gap-8 flex-col justify-center">
         <FontAwesomeIcon icon={faSpotify} className="text-white text-[3rem]" />
         <div className="relative">
