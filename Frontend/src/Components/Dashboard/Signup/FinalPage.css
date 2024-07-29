@@ -1,0 +1,11 @@
+.custom-checkbox {
+  height: 2rem;
+  width: 2rem;
+  background-color: #121212;
+
+  cursor: pointer;
+}
+
+.custom-checkbox:checked {
+  background-color: #1ed760;
+}
