@@ -19,6 +19,17 @@ model Admin {
   password String
 }
 
+model User {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  password String
+  name     String
+  day      Int
+  month    Int
+  year     Int
+  gender   String
+}
+
 model Songs {
   id         Int      @id @default(autoincrement())
   name       String
@@ -29,6 +40,6 @@ model Songs {
   image      String
   audio      String
   duration   String
-  Region     String @default("Indian")
+  Region     String   @default("Indian")
   creratedAt DateTime @default(now())
 }
