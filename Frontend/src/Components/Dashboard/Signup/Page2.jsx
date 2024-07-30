@@ -5,6 +5,7 @@ import { faSpotify } from "@fortawesome/free-brands-svg-icons";
 import { faAngleLeft, faCircle } from "@fortawesome/free-solid-svg-icons";
 import { useRecoilState } from "recoil";
 import { formDataState } from "../Recoil/recoil";
+import { motion } from "framer-motion";
 export default function Page2({ setStep }) {
   const passwordRef = useRef();
   const [formData, setFormData] = useRecoilState(formDataState);
@@ -24,7 +25,13 @@ export default function Page2({ setStep }) {
       <div className="w-[30vw]   text-center flex gap-8 flex-col justify-center">
         <FontAwesomeIcon icon={faSpotify} className="text-white text-[3rem]" />
         <div className="relative">
-          <div className="relative z-10 p-4">
+          <motion.div
+            key="page2"
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 30 }}
+            className="relative z-10 p-4"
+          >
             <div className="flex items-center gap-6">
               <FontAwesomeIcon
                 icon={faAngleLeft}
@@ -99,7 +106,7 @@ export default function Page2({ setStep }) {
                 apply.
               </p>
             </div>
-          </div>
+          </motion.div>
           <div className="absolute top-0 left-0 w-full h-0.5 flex">
             <div className="h-full bg-[#1ED760]" style={{ width: "40%" }}></div>
             <div className="h-full bg-[#727272] flex-1"></div>

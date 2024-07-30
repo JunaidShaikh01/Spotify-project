@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { formDataState } from "../Recoil/recoil";
+import { motion } from "framer-motion";
 import axios from "axios";
 
 export default function FinalPage() {
@@ -48,7 +49,12 @@ export default function FinalPage() {
                 </p>
               </div>
             </div>
-            <div className="flex flex-col gap-4 justify-center w-full px-4 mt-4">
+            <motion.div
+              initial={{ opacity: 0, y: -30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 30 }}
+              className="flex flex-col gap-4 justify-center w-full px-4 mt-4"
+            >
               <div className="checkBox1 bg-[#232323] text-white text-start rounded-lg p-4 flex gap-2 items-start">
                 <input
                   type="checkbox"
@@ -105,7 +111,7 @@ export default function FinalPage() {
               >
                 Signup
               </button>
-            </div>
+            </motion.div>
             <div className="mt-10 text-sm">
               <p className="text-[#b2b2b2]">
                 This site is protected by reCAPTCHA and the Google

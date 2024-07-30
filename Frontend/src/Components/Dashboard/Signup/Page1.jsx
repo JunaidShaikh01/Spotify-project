@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { formDataState } from "../Recoil/recoil";
+import { motion } from "framer-motion";
 export default function Page1({ setStep }) {
   const emailRef = useRef();
   const [formData, setFormData] = useRecoilState(formDataState);
@@ -28,7 +29,13 @@ export default function Page1({ setStep }) {
           </h1>
         </div>
         <div className="flex w-full  items-center justify-center mt-4 ">
-          <div className="flex flex-col gap-4 justify-center w-full px-4">
+          <motion.div
+            key="page1"
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 30 }}
+            className="flex flex-col gap-4 justify-center w-full px-4"
+          >
             <label className="text-white text-start" htmlFor="email">
               Email address
             </label>
@@ -47,7 +54,7 @@ export default function Page1({ setStep }) {
             >
               Next
             </button>
-          </div>
+          </motion.div>
         </div>
         <div className="border-b border-gray-600 my-8"></div>
         <div className="text-[#b2b2b2] flex gap-2 justify-center items-center">
