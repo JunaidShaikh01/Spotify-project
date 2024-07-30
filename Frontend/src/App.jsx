@@ -10,8 +10,8 @@ import SelectedArtist from "./Components/Dashboard/Artist/SelectedArtist";
 import SelectedAlbum from "./Components/Dashboard/PopularAlbum/SelectedAlbum";
 import SelectedRedio from "./Components/Dashboard/Redio/SelectedRedio";
 import SelectedCarts from "./Components/Dashboard/Featured Charts/SelectedCarts";
-import Login from "./Components/Dashboard/Login/Login";
 import MultipulSignup from "./Components/Dashboard/Signup/MultipulSignup";
+import LoginPage, { action as userLoginAction } from "./pages/LoginPage";
 
 export default function App() {
   const router = createBrowserRouter([
@@ -39,7 +39,8 @@ export default function App() {
     },
     {
       path: "/login",
-      element: <Login />,
+      element: <LoginPage />,
+      action: userLoginAction,
     },
     {
       path: "/Signup",
