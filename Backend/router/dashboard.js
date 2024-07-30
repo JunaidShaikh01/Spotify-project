@@ -4,6 +4,8 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const zod = require("zod");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const signupSchema = zod.object({
   username: zod.string().email(),
@@ -13,6 +15,11 @@ const signupSchema = zod.object({
   month: zod.number().int().min(1).max(12),
   year: zod.number().int().min(1900).max(2100),
   gender: zod.string(),
+});
+
+const signinSvhema = zod.object({
+  username: zod.string().email(),
+  password: zod.string().min(8).max(20),
 });
 
 //Getting Songs at User dashboard
@@ -30,14 +37,13 @@ dashboardRouter.get("/songs", async (req, res) => {
 });
 
 //user Signup
-
 dashboardRouter.post("/signup", async (req, res) => {
   req.body.day = parseInt(req.body.day, 10);
   req.body.month = parseInt(req.body.month, 10);
   req.body.year = parseInt(req.body.year, 10);
 
   const validation = signupSchema.safeParse(req.body);
-  console.log("Validation", validation.success);
+
   try {
     if (!validation.success) {
       return res.status(400).json({
@@ -82,6 +88,42 @@ dashboardRouter.post("/signup", async (req, res) => {
   }
 });
 
+//User Login
+dashboardRouter.post("/login", async (req, res) => {
+  const validation = signinSvhema.safeParse(req.body);
+  console.log("Validation", validation.success);
+  try {
+    if (!validation.success) {
+      return res.status(400).json({
+        msg: "Invalid Input",
+      });
+    }
+    const { username, password } = validation.data;
+    const user = await prisma.user.findUnique({
+      where: {
+        username: username,
+      },
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        msg: "User not found",
+      });
+    }
+    const passwordIsMatch = await bcrypt.compare(password, user.password);
+    if (!passwordIsMatch) {
+      return res.status(404).json({
+        msg: "Invalid Password",
+      });
+    }
+    const token = jwt.sign({ userId: user.id }, JWT_SECRET);
+    res.json({
+      msg: "Signin Successfull",
+      user,
+      token,
+    });
+  } catch (error) {}
+});
 module.exports = {
   dashboardRouter,
 };

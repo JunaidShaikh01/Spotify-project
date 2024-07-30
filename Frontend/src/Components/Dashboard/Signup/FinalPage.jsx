@@ -1,16 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { faSpotify } from "@fortawesome/free-brands-svg-icons";
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { formDataState } from "../Recoil/recoil";
+import axios from "axios";
 
 export default function FinalPage() {
   const [formData] = useRecoilState(formDataState);
   const navigate = useNavigate();
   const handleNext = () => {
-    console.log("Form data", formData);
+    console.log("Finaal Input ", formData);
+    const userSignup = async () => {
+      try {
+        await axios.post("http://localhost:3000/api/v1/dashboard/signup", {
+          username: formData.email,
+          password: formData.password,
+          name: formData.name,
+          day: formData.day,
+          month: formData.month,
+          year: formData.year,
+          gender: formData.gender,
+        });
+      } catch (error) {
+        console.error(error.response.data.message);
+      }
+    };
+    userSignup();
     navigate("/");
   };
   return (
