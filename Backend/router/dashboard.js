@@ -5,6 +5,7 @@ const prisma = new PrismaClient();
 const zod = require("zod");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { authMiddleware } = require("../middleware/middleware");
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const signupSchema = zod.object({
@@ -104,7 +105,6 @@ dashboardRouter.post("/login", async (req, res) => {
         username: username,
       },
     });
-
     if (!user) {
       return res.status(404).json({
         msg: "User not found",
@@ -117,12 +117,53 @@ dashboardRouter.post("/login", async (req, res) => {
       });
     }
     const token = jwt.sign({ userId: user.id }, JWT_SECRET);
+    console.log("userId:-", user.id);
+    console.log("Token:-", token);
     res.json({
       msg: "Signin Successfull",
       user,
       token,
     });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    return res.status(404).json({
+      msg: `Some error has been occured ${error}`,
+    });
+  }
+});
+
+//getting user
+
+dashboardRouter.get("/me", authMiddleware, async (req, res) => {
+  console.log("User Id ", req.userId);
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: req.userId,
+      },
+      select: {
+        id: true,
+        username: true,
+        name: true,
+        day: true,
+        month: true,
+        year: true,
+        gender: true,
+      },
+    });
+
+    if (!user) {
+      return res.status(403).json({
+        msg: "User not found",
+      });
+    }
+    res.json({ user });
+  } catch (error) {
+    console.log(error);
+    return res.status(404).json({
+      msg: `Some error has been occured ${error}`,
+    });
+  }
 });
 module.exports = {
   dashboardRouter,
