@@ -92,7 +92,7 @@ dashboardRouter.post("/signup", async (req, res) => {
 //User Login
 dashboardRouter.post("/login", async (req, res) => {
   const validation = signinSvhema.safeParse(req.body);
-  console.log("Validation", validation.success);
+  
   try {
     if (!validation.success) {
       return res.status(400).json({
@@ -116,9 +116,12 @@ dashboardRouter.post("/login", async (req, res) => {
         msg: "Invalid Password",
       });
     }
-    const token = jwt.sign({ userId: user.id }, JWT_SECRET);
-    console.log("userId:-", user.id);
-    console.log("Token:-", token);
+
+    const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
+    
     res.json({
       msg: "Signin Successfull",
       user,
@@ -135,7 +138,7 @@ dashboardRouter.post("/login", async (req, res) => {
 //getting user
 
 dashboardRouter.get("/me", authMiddleware, async (req, res) => {
-  console.log("User Id ", req.userId);
+ 
   try {
     const user = await prisma.user.findUnique({
       where: {
