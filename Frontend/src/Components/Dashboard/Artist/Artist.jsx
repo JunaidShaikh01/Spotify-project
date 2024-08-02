@@ -11,15 +11,15 @@ export default function Artist() {
     useRecoilState(selectedArtistState);
   const [hoveredArtist, setHoveredArtist] = useState(null);
   const navigate = useNavigate();
- 
+
   const handleClick = (artist) => {
     setSelectedArtist(artist);
     navigate("/selectedArtist");
   };
   return (
     <div className="">
-      <div className="bg-gradient-to-b from-[#2c2b2b] to-[#121212] pt-1">
-        <div className="flex justify-between px-4 mt-4">
+      <div className="bg-gradient-to-b from-[#2c2b2b] to-[#121212] pt-1 z-10">
+        <div className="flex justify-between px-4 mt-4 z-10">
           <h1 className="text-2xl font-bold">Populer Artist</h1>
           <p className="text-lg font-semibold text-[#c0bfbf]  hover:text-white transform duration-300 ease-in-out cursor-pointer">
             Show all
@@ -34,19 +34,14 @@ export default function Artist() {
               onMouseLeave={() => setHoveredArtist(null)}
               onClick={() => handleClick(artist.artist)}
             >
-              <div className="w-[13vw] h-[13vw] pt-2 relative">
+              <div className="w-[13vw] h-[13vw] pt-2 relative z-10">
                 <img
                   src={artist.image}
                   alt={artist.artist}
                   className="w-full h-full rounded-full shadow-2xl object-cover"
                 />
                 {hoveredArtist === artist.artist && (
-                  <motion.div
-                    className="absolute bottom-0 right-0 flex items-center justify-center  bg-opacity-95 transition-opacity  duration-300 text-2xl w-16 h-16 bg-green-600 rounded-full p-2 "
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                  >
+                  <motion.div className="absolute bottom-0 right-0 flex items-center justify-center  bg-opacity-95 transition-opacity  duration-300 text-2xl w-16 h-16 bg-green-600 rounded-full p-2 ">
                     <FontAwesomeIcon
                       icon={faPlay}
                       className="text-black text-2xl"

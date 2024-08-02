@@ -12,10 +12,13 @@ import SelectedRedio from "./Components/Dashboard/Redio/SelectedRedio";
 import SelectedCarts from "./Components/Dashboard/Featured Charts/SelectedCarts";
 import MultipulSignup from "./Components/Dashboard/Signup/MultipulSignup";
 import LoginPage, { action as userLoginAction } from "./pages/LoginPage";
+import UserDashboardPage, {
+  loader as dashboardLoader,
+} from "./pages/UserDashboardPage";
 
 export default function App() {
   const router = createBrowserRouter([
-    { path: "/", element: <Dashboard /> },
+    { path: "/", element: <UserDashboardPage />, loader: dashboardLoader },
     {
       path: "/adminLogin",
       element: <AdminLoginPage />,
