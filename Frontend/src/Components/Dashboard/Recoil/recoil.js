@@ -37,3 +37,8 @@ export const formDataState = atom({
     gender: "",
   },
 });
+
+export const modalState = atom({
+  key: "modalState",
+  default: false,
+});

@@ -1,7 +1,18 @@
 import React from "react";
 import SelectePlaylistSong from "./SelectePlaylistSong";
+import { useRecoilState } from "recoil";
+import { modalState } from "../Recoil/recoil";
+// import Modal from "./Modal";
 
 export default function CreateLibraryBanner() {
+  const [, setIsModalOpen] = useRecoilState(modalState);
+  const openModal = () => {
+    try {
+      setIsModalOpen(true);
+    } catch (error) {
+      console.error("Error setting modal state:", error);
+    }
+  };
   return (
     <div>
       <div className="h-[35vh] flex items-center bg-gradient-to-b from-[#525252] via-[#3b3b3b] to-[#2e2e2e]">
@@ -10,7 +21,10 @@ export default function CreateLibraryBanner() {
             <img src="" alt="Selected artist image" className="w-full h-full" />
           </div>
           <div className="flex flex-col">
-            <h1 className="text-white text-[5rem] drop-shadow-xl font-extrabold">
+            <h1
+              className="text-white text-[5rem] drop-shadow-xl font-extrabold"
+              onClick={openModal}
+            >
               Playlist
             </h1>
             <p className="text-white text-lg">40,373,319 monthly listeners</p>

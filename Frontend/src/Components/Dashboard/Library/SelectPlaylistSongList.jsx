@@ -21,7 +21,7 @@ export default function SelectPlaylistSongList() {
   return (
     <div>
       <h1 className="text-xl font-bold">Recommended</h1>
-      <div className="w-full max-h-[50vh] overflow-auto px-2 mt-4">
+      <div className="w-full max-h-[55vh] overflow-auto px-2 mt-4">
         {fetchedSongs.length === 0 ? (
           <p className="text-white">No songs found</p>
         ) : (

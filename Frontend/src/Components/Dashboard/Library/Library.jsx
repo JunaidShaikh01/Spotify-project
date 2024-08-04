@@ -3,10 +3,15 @@ import Sidebar from "../SideBar/Sidebar";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import CreateLibraryBanner from "./CreateLibraryBanner";
+import { modalState } from "../Recoil/recoil";
+import { useRecoilState } from "recoil";
+import Modal from "./Modal";
 
 export default function Library() {
+  const [isModalOpen] = useRecoilState(modalState);
+
   return (
-    <div className="bg-black h-screen w-screen">
+    <div className="bg-black h-screen w-screen relative">
       <div className="flex h-full w-full gap-2 p-2">
         <Sidebar />
         <div className="bg-[#121212] rounded-lg text-white w-full h-full overflow-auto ">
@@ -15,6 +20,8 @@ export default function Library() {
           <Footer />
         </div>
       </div>
+
+      {isModalOpen ? <Modal /> : ""}
     </div>
   );
 }
