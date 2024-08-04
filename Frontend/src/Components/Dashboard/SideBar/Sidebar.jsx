@@ -7,6 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import CreatePlaylist from "./CreatePlaylist";
 
 export default function () {
   return (
@@ -25,14 +26,15 @@ export default function () {
           <p>Search</p>
         </div>
       </div>
-      <div className="bg-[#121212] text-white h-[70vh] rounded-lg">
-        <div className="w-full items-end flex justify-between p-4">
+      <div className="bg-[#121212] text-white h-[70vh] rounded-lg px-2 flex flex-col">
+        <div className="w-full items-end flex justify-between py-4">
           <div className="flex items-center gap-2">
             <FontAwesomeIcon icon={faDatabase} />
             <p>Your Library</p>
           </div>
           <FontAwesomeIcon icon={faPlus} />
         </div>
+        <CreatePlaylist />
       </div>
     </div>
   );

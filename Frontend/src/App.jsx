@@ -15,6 +15,7 @@ import LoginPage, { action as userLoginAction } from "./pages/LoginPage";
 import UserDashboardPage, {
   loader as dashboardLoader,
 } from "./pages/UserDashboardPage";
+import Library from "./Components/Dashboard/Library/Library";
 
 export default function App() {
   const router = createBrowserRouter([
@@ -52,6 +53,10 @@ export default function App() {
     {
       path: "/selectedCarts",
       element: <SelectedCarts />,
+    },
+    {
+      path: "/library",
+      element: <Library/>,
     },
   ]);
   return (
