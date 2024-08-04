@@ -18,7 +18,7 @@ const signupSchema = zod.object({
   gender: zod.string(),
 });
 
-const signinSvhema = zod.object({
+const signinSchema = zod.object({
   username: zod.string().email(),
   password: zod.string().min(8).max(20),
 });
@@ -91,8 +91,8 @@ dashboardRouter.post("/signup", async (req, res) => {
 
 //User Login
 dashboardRouter.post("/login", async (req, res) => {
-  const validation = signinSvhema.safeParse(req.body);
-  
+  const validation = signinSchema.safeParse(req.body);
+
   try {
     if (!validation.success) {
       return res.status(400).json({
@@ -121,7 +121,6 @@ dashboardRouter.post("/login", async (req, res) => {
       expiresIn: "1h",
     });
 
-    
     res.json({
       msg: "Signin Successfull",
       user,
@@ -138,7 +137,6 @@ dashboardRouter.post("/login", async (req, res) => {
 //getting user
 
 dashboardRouter.get("/me", authMiddleware, async (req, res) => {
- 
   try {
     const user = await prisma.user.findUnique({
       where: {
@@ -168,6 +166,70 @@ dashboardRouter.get("/me", authMiddleware, async (req, res) => {
     });
   }
 });
+
+//Create a new playlist
+
+dashboardRouter.post("/playlist", authMiddleware, async (req, res) => {
+  try {
+    const playlist = await prisma.playlist.create({
+      data: {
+        name: req.body.name,
+        userId: req.userId,
+      },
+    });
+    res.json({ playlist });
+  } catch (error) {
+    console.log(error);
+    return res.status(404).json({
+      msg: `Some error has been occured ${error}`,
+    });
+  }
+});
+
+//Adding Songs In Playlist
+
+dashboardRouter.post(
+  "/playlist/:playlistId/add-song",
+  authMiddleware,
+  async (req, res) => {
+    try {
+      const playlist = await prisma.playlist.findUnique({
+        where: {
+          id: parseInt(req.params.playlistId),
+          userId: req.userId,
+        },
+      });
+      if (!playlist) {
+        return res.status(404).json({
+          msg: "Playlist not found",
+        });
+      }
+      const song = await prisma.songs.findUnique({
+        where: {
+          id: parseInt(req.body.songId),
+        },
+      });
+      if (!song) {
+        return res.status(404).json({
+          msg: "Song not found",
+        });
+      }
+      await prisma.playlistSongs.create({
+        data: {
+          playlistId: parseInt(req.params.playlistId),
+          songId: parseInt(req.body.songId),
+        },
+      });
+      res.json({ msg: "Song added successfully" });
+    } catch (error) {
+      console.log(error);
+      return res.status(404).json({
+        msg: `Some error has been occured ${error}`,
+      });
+    }
+  }
+);
+
 module.exports = {
   dashboardRouter,
 };
