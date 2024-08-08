@@ -9,6 +9,7 @@ import Modal from "./Modal";
 
 export default function Library() {
   const [isModalOpen] = useRecoilState(modalState);
+  console.log("Is modal open ", isModalOpen);
 
   return (
     <div className="bg-black h-screen w-screen relative">

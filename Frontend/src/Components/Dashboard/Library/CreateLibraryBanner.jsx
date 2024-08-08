@@ -22,7 +22,7 @@ export default function CreateLibraryBanner() {
           </div>
           <div className="flex flex-col">
             <h1
-              className="text-white text-[5rem] drop-shadow-xl font-extrabold"
+              className="text-white text-[5rem] drop-shadow-xl font-extrabold cursor-pointer"
               onClick={openModal}
             >
               Playlist
