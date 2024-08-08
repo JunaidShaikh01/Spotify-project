@@ -8,6 +8,8 @@ import FeaturedCharts from "./Featured Charts/FeaturedCharts";
 import Footer from "./Footer/Footer";
 
 export default function Dashboard({ data }) {
+  console.log("Data loaded", data);
+
   return (
     <div className="bg-black h-screen w-screen">
       <div className="flex h-full w-full gap-2 p-2">

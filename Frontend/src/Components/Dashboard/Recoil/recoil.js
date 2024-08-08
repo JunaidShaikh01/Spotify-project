@@ -38,6 +38,11 @@ export const formDataState = atom({
   },
 });
 
+export const userDataState = atom({
+  key: "userDataState",
+  default: null,
+});
+
 export const modalState = atom({
   key: "modalState",
   default: false,

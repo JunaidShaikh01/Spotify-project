@@ -3,12 +3,14 @@ import Sidebar from "../SideBar/Sidebar";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import CreateLibraryBanner from "./CreateLibraryBanner";
-import { modalState } from "../Recoil/recoil";
+import { modalState, userDataState } from "../Recoil/recoil";
 import { useRecoilState } from "recoil";
 import Modal from "./Modal";
 
 export default function Library() {
   const [isModalOpen] = useRecoilState(modalState);
+  const [userData] = useRecoilState(userDataState);
+  console.log("User data ", userData);
   console.log("Is modal open ", isModalOpen);
 
   return (
@@ -16,7 +18,7 @@ export default function Library() {
       <div className="flex h-full w-full gap-2 p-2">
         <Sidebar />
         <div className="bg-[#121212] rounded-lg text-white w-full h-full overflow-auto ">
-          <Header />
+          <Header data={userData} />
           <CreateLibraryBanner />
           <Footer />
         </div>

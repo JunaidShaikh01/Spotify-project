@@ -1,10 +1,19 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import Dashboard from "../Components/Dashboard/Dashboard";
 import axios from "axios";
 import { Await, defer, useLoaderData } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { userDataState } from "../Components/Dashboard/Recoil/recoil";
 
 export default function UserDashboardPage() {
   const { data } = useLoaderData();
+  const [, setUserData] = useRecoilState(userDataState);
+
+  useEffect(() => {
+    data.then((resolvedData) => {
+      setUserData(resolvedData);
+    });
+  }, [data, setUserData]);
 
   return (
     <div>
@@ -31,9 +40,9 @@ export default function UserDashboardPage() {
             </div>
           }
         >
-          {(data) => (
+          {(resolvedData) => (
             <>
-              <Dashboard data={data} />
+              <Dashboard data={resolvedData} />
             </>
           )}
         </Await>
@@ -67,6 +76,6 @@ export const loadData = async () => {
 
 export const loader = () => {
   return defer({
-    data: loadData(),
+    data: loadData(), // Still defer the data here
   });
 };
