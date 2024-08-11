@@ -168,7 +168,6 @@ dashboardRouter.get("/me", authMiddleware, async (req, res) => {
 });
 
 //Create a new playlist
-
 dashboardRouter.post("/playlist", authMiddleware, async (req, res) => {
   try {
     const playlist = await prisma.playlist.create({
@@ -182,6 +181,25 @@ dashboardRouter.post("/playlist", authMiddleware, async (req, res) => {
     console.log(error);
     return res.status(404).json({
       msg: `Some error has been occured ${error}`,
+    });
+  }
+});
+
+//Getting all playlists from the server
+
+dashboardRouter.get("/playlists", authMiddleware, async (req, res) => {
+  try {
+    const playlists = await prisma.playlist.findMany({
+      where: {
+        userId: req.userId,
+      },
+    });
+    res.json({playlists});
+  } catch (error) {
+    console.error("Error fetching songs", error);
+    res.status(500).json({
+      error: "internal server error",
+      error: error.message,
     });
   }
 });

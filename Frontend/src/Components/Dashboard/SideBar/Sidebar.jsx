@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import { faSpotify } from "@fortawesome/free-brands-svg-icons";
 import {
   faDatabase,
@@ -6,10 +7,36 @@ import {
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
 import CreatePlaylist from "./CreatePlaylist";
+import axios from "axios";
 
-export default function () {
+export default function ({ data }) {
+  const [response, setResponse] = useState([]);
+  useEffect(() => {
+    const fetchPlaylist = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        return null;
+      }
+      try {
+        const { data } = await axios.get(
+          "http://localhost:3000/api/v1/dashboard/playlists",
+          {
+            headers: {
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        setResponse(data.playlists);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        return null;
+      }
+    };
+
+    fetchPlaylist();
+  }, []);
+
   return (
     <div className="flex flex-col h-full w-[24vw] gap-2 ">
       <div className="bg-[#121212] rounded-lg text-white h-[25vh] p-8 text-xl flex flex-col gap-4 justify-center">
@@ -26,16 +53,39 @@ export default function () {
           <p>Search</p>
         </div>
       </div>
-      <div className="bg-[#121212] text-white h-[70vh] rounded-lg px-2 flex flex-col">
-        <div className="w-full items-end flex justify-between py-4">
-          <div className="flex items-center gap-2">
-            <FontAwesomeIcon icon={faDatabase} />
-            <p>Your Library</p>
+      {!data ? (
+        <div className="bg-[#121212] text-white h-[70vh] rounded-lg px-2 flex flex-col">
+          <div className="w-full items-end flex justify-between py-4">
+            <div className="flex items-center gap-2">
+              <FontAwesomeIcon icon={faDatabase} />
+              <p>Your Library</p>
+            </div>
+            <FontAwesomeIcon icon={faPlus} />
           </div>
-          <FontAwesomeIcon icon={faPlus} />
+          <CreatePlaylist />
         </div>
-        <CreatePlaylist />
-      </div>
+      ) : response.length > 0 ? (
+        response.map((playlist, index) => (
+          <div
+            key={index}
+            className="flex gap-4 items-center py-x bg-[#121212] text-white "
+          >
+            <p>{playlist.name}</p>
+            <div></div>
+          </div>
+        ))
+      ) : (
+        <div className="bg-[#121212] text-white h-[70vh] rounded-lg px-2 flex flex-col">
+          <div className="w-full items-end flex justify-between py-4">
+            <div className="flex items-center gap-2">
+              <FontAwesomeIcon icon={faDatabase} />
+              <p>Your Library</p>
+            </div>
+            <FontAwesomeIcon icon={faPlus} />
+          </div>
+          <CreatePlaylist />
+        </div>
+      )}
     </div>
   );
 }
