@@ -56,7 +56,7 @@ export default function App() {
     },
     {
       path: "/library",
-      element: <Library/>,
+      element: <Library />,
     },
   ]);
   return (

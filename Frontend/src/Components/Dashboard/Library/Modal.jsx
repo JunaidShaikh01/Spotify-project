@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
-import { modalState } from "../Recoil/recoil";
+import { fetchedPlaylistState, modalState } from "../Recoil/recoil";
 import TextField from "@mui/material/TextField";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMusic, faX } from "@fortawesome/free-solid-svg-icons";
@@ -8,10 +8,12 @@ import axios from "axios";
 export default function Modal() {
   const [, setIsModalOpen] = useRecoilState(modalState);
   const [title, setTitle] = useState("");
+  const [playListState, setPlaylistState] =
+    useRecoilState(fetchedPlaylistState);
 
   const handleSubmit = async () => {
     setIsModalOpen(false);
-
+    setPlaylistState(!playListState);
     const token = localStorage.getItem("token");
     if (!token) {
       return null;

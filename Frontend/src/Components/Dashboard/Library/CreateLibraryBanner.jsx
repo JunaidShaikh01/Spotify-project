@@ -1,11 +1,13 @@
 import React from "react";
 import SelectePlaylistSong from "./SelectePlaylistSong";
 import { useRecoilState } from "recoil";
-import { modalState } from "../Recoil/recoil";
-// import Modal from "./Modal";
+import { modalState, selectedPlaylistIdState } from "../Recoil/recoil";
 
 export default function CreateLibraryBanner() {
   const [, setIsModalOpen] = useRecoilState(modalState);
+  const [selectedPlaylistId, setSelectedPlaylistId] = useRecoilState(
+    selectedPlaylistIdState
+  );
   const openModal = () => {
     try {
       setIsModalOpen(true);

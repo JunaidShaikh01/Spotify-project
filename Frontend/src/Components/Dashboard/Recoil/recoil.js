@@ -47,3 +47,18 @@ export const modalState = atom({
   key: "modalState",
   default: false,
 });
+
+export const selectedPlaylistIdState = atom({
+  key: "selectedPlaylistId",
+  default: null,
+});
+
+export const dateFetchState = atom({
+  key: "dateFetchState",
+  default: null,
+});
+
+export const fetchedPlaylistState = atom({
+  key: "fetchedPlaylistState",
+  default: false,
+});

@@ -6,9 +6,12 @@ import PopularAlbum from "./PopularAlbum/PopularAlbum";
 import Redio from "./Redio/Redio";
 import FeaturedCharts from "./Featured Charts/FeaturedCharts";
 import Footer from "./Footer/Footer";
+import { useRecoilState } from "recoil";
+import { dateFetchState } from "./Recoil/recoil";
 
 export default function Dashboard({ data }) {
-  console.log("Data loaded", data);
+  const [, setFetchedData] = useRecoilState(dateFetchState);
+  setFetchedData(data);
 
   return (
     <div className="bg-black h-screen w-screen">
