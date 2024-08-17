@@ -51,7 +51,7 @@ export default function ({ data }) {
   const navigate = useNavigate();
   const handlePlaylistClick = (playlistId) => {
     setSelectedPlaylistId(playlistId);
-    navigate("/library");
+    navigate(`/library/${playlistId}`);
   };
 
   return (

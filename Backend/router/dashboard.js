@@ -194,7 +194,7 @@ dashboardRouter.get("/playlists", authMiddleware, async (req, res) => {
         userId: req.userId,
       },
     });
-    res.json({playlists});
+    res.json({ playlists });
   } catch (error) {
     console.error("Error fetching songs", error);
     res.status(500).json({
@@ -204,8 +204,24 @@ dashboardRouter.get("/playlists", authMiddleware, async (req, res) => {
   }
 });
 
-//Adding Songs In Playlist
+dashboardRouter.get("/playlists/playlist/:id", async (req, res) => {
+  try {
+    const playlist = await prisma.playlist.findUnique({
+      where: {
+        id: parseInt(req.params.id),
+      },
+    });
+    res.json(playlist);
+  } catch (error) {
+    console.error("Error fetching songs", error);
+    res.status(500).json({
+      error: "Something went wrong",
+      error: error.message,
+    });
+  }
+});
 
+//Adding Songs In Playlist
 dashboardRouter.post(
   "/playlist/:playlistId/add-song",
   authMiddleware,

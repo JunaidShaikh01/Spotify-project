@@ -58,6 +58,10 @@ export default function App() {
       path: "/library",
       element: <Library />,
     },
+    {
+      path: "/library/:id",
+      element: <Library />,
+    },
   ]);
   return (
     <RecoilRoot>

@@ -19,16 +19,12 @@ export default function UserDashboardPage() {
     <div>
       <Suspense
         fallback={
-          <h1
-            style={{
-              textAlign: "center",
-              fontWeight: "bolder",
-              fontSize: "1.2rem",
-              marginTop: "10rem",
-            }}
-          >
-            Loading..
-          </h1>
+          <div className="bg-black w-[100vw] h-[100vh] flex items-center justify-center">
+            <h1 className="text-[#1ED760] text-[3rem] font-extrabold">
+              Loading..
+            </h1>
+          
+          </div>
         }
       >
         <Await
