@@ -5,9 +5,7 @@ import { modalState, selectedPlaylistIdState } from "../Recoil/recoil";
 
 export default function CreateLibraryBanner({ playlistInfo }) {
   const [, setIsModalOpen] = useRecoilState(modalState);
-  const [selectedPlaylistId, setSelectedPlaylistId] = useRecoilState(
-    selectedPlaylistIdState
-  );
+
   const openModal = () => {
     try {
       setIsModalOpen(true);

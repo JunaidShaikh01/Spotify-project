@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useRecoilState } from "recoil";
+import { playlistSongState, selectedPlaylistIdState } from "../Recoil/recoil";
 
 export default function SelectPlaylistSongList() {
   const [fetchedSongs, setFetchedSongs] = useState([]);
+  const [selectedPlaylistId] = useRecoilState(selectedPlaylistIdState);
+  const [fetchPlaylistSong, setFetchPlaylistSong] =
+    useRecoilState(playlistSongState);
+  const id = selectedPlaylistId;
+
   useEffect(() => {
     const fetchSongs = async () => {
       try {
@@ -18,6 +25,31 @@ export default function SelectPlaylistSongList() {
     fetchSongs();
   }, []);
 
+  const addClickHandler = async (songId) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      return null;
+    }
+
+    try {
+      await axios.post(
+        `http://localhost:3000/api/v1/dashboard/playlist/${id}/add-song`,
+        {
+          songId: songId,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setFetchPlaylistSong(!fetchPlaylistSong);
+    } catch (error) {
+      console.error("Error adding song to playlist", error);
+    }
+  };
+
   return (
     <div>
       <h1 className="text-xl font-bold">Recommended</h1>
@@ -26,7 +58,7 @@ export default function SelectPlaylistSongList() {
           <p className="text-white">No songs found</p>
         ) : (
           <div className="songsSection  items-center  ">
-            {fetchedSongs.map((song, index) => (
+            {fetchedSongs.map((song) => (
               <div
                 className="songCard  text-white flex gap-2  mb-2 items-center"
                 key={song.id}
@@ -48,7 +80,10 @@ export default function SelectPlaylistSongList() {
                   <span>{song.albumName}</span>
                 </div>
                 <div className="col flex-grow-[20]  basis-0  mr-2">
-                  <p className="border border-white text-center  rounded-full hover:scale-105 cursor-pointer">
+                  <p
+                    className="border border-white text-center  rounded-full hover:scale-105 cursor-pointer"
+                    onClick={() => addClickHandler(song.id)}
+                  >
                     Add
                   </p>
                 </div>

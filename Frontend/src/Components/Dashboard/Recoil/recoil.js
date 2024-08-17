@@ -62,3 +62,8 @@ export const fetchedPlaylistState = atom({
   key: "fetchedPlaylistState",
   default: false,
 });
+
+export const playlistSongState = atom({
+  key: "playlistSongState",
+  default: false,
+});

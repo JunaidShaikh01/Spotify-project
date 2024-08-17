@@ -248,6 +248,22 @@ dashboardRouter.post(
           msg: "Song not found",
         });
       }
+
+      const existingEntry = await prisma.playlistSongs.findUnique({
+        where: {
+          playlistId_songId: {
+            playlistId: parseInt(req.params.playlistId),
+            songId: parseInt(req.body.songId),
+          },
+        },
+      });
+
+      if (existingEntry) {
+        return res.json({
+          msg: "Song already exists in the playlist, skipping addition.",
+        });
+      }
+
       await prisma.playlistSongs.create({
         data: {
           playlistId: parseInt(req.params.playlistId),
@@ -263,6 +279,34 @@ dashboardRouter.post(
     }
   }
 );
+
+dashboardRouter.get("/playlistSongs", async (req, res) => {
+  try {
+    const playlistSongs = await prisma.playlistSongs.findMany({
+      where: {
+        playlistId: parseInt(req.query.playlistId),
+      },
+      include: {
+        song: {
+          select: {
+            id: true,
+            name: true,
+            image: true,
+            singerName: true,
+            albumName: true,
+          },
+        },
+      },
+    });
+    res.json(playlistSongs);
+  } catch (error) {
+    console.error("Error fetching songs", error);
+    res.status(500).json({
+      error: "internal server error",
+      error: error.message,
+    });
+  }
+});
 
 module.exports = {
   dashboardRouter,

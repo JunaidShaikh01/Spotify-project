@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   faEllipsis,
   faList,
@@ -7,9 +7,34 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SelectPlaylistSongList from "./SelectPlaylistSongList";
+import { useRecoilState } from "recoil";
+import { playlistSongState, selectedPlaylistIdState } from "../Recoil/recoil";
 
 export default function SelectePlaylistSong() {
+  const [selectedPlaylistId] = useRecoilState(selectedPlaylistIdState);
+  const [fetchPlaylistSong] = useRecoilState(playlistSongState);
   const [isOpen, setIsopen] = useState(false);
+  const [isOpenSongList, setIsOpenSongList] = useState(false);
+  const [fetchedSongs, setFetchedSongs] = useState([]);
+  console.log("Response received", fetchedSongs);
+  console.log("isOpenSongList", isOpenSongList);
+  console.log("fetchPlaylistSong", fetchPlaylistSong);
+
+  useEffect(() => {
+    const fetchSongs = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/api/v1/dashboard/playlistSongs",
+          {
+            params: { playlistId: selectedPlaylistId },
+          }
+        );
+        setFetchedSongs(response.data.playlistSongs);
+      } catch (error) {}
+    };
+    fetchSongs();
+  }, [fetchPlaylistSong]);
+
   return (
     <div className="bg-gradient-to-b from-[#1d1d1d] via-[#121212] to-[#121212] px-4">
       <div className="w-full flex justify-between items-center pt-8">
@@ -18,7 +43,10 @@ export default function SelectePlaylistSong() {
           onClick={() => setIsopen(false)}
           className="hover:text-white text-[#b2b2b2] hover:scale-110 transform duration-300 ease-in-out"
         />
-        <div className=" flex items-center gap-2">
+        <div
+          className=" flex items-center gap-2"
+          onClick={() => setIsOpenSongList(false)}
+        >
           <p>List</p>
           <FontAwesomeIcon icon={faList} />
         </div>
@@ -47,6 +75,41 @@ export default function SelectePlaylistSong() {
         </div>
       ) : (
         ""
+      )}
+
+      {!isOpenSongList ? (
+        <div className="songsSection  items-center  ">
+          {fetchedSongs.map((song) => (
+            <div
+              className="songCard  text-white flex gap-2  mb-2 items-center"
+              key={song.id}
+            >
+              <div className="  flex-grow-[150] basis-0 mb-2 ">
+                <div className="flex gap-4">
+                  <img
+                    src={`http://localhost:3000/${song.image}`}
+                    alt="Song Image"
+                    className="w-12 h-12 object-cover rounded-md"
+                  />
+                  <div>
+                    <div>{song.name}</div>
+                    <div className="text-[#b2b2b2]">{song.singerName}</div>
+                  </div>
+                </div>
+              </div>
+              <div className="col flex-grow-[80] basis-0 ">
+                <span>{song.albumName}</span>
+              </div>
+              <div className="col flex-grow-[20]  basis-0  mr-2">
+                <p className="border border-white text-center  rounded-full hover:scale-105 cursor-pointer">
+                  Add
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        " "
       )}
       <SelectPlaylistSongList />
     </div>
