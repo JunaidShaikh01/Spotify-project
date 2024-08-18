@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SelectPlaylistSongList from "./SelectPlaylistSongList";
 import { useRecoilState } from "recoil";
 import { playlistSongState, selectedPlaylistIdState } from "../Recoil/recoil";
+import axios from "axios";
 
 export default function SelectePlaylistSong() {
   const [selectedPlaylistId] = useRecoilState(selectedPlaylistIdState);
@@ -21,19 +22,27 @@ export default function SelectePlaylistSong() {
   console.log("fetchPlaylistSong", fetchPlaylistSong);
 
   useEffect(() => {
+    console.log("Inside useeffect");
+
     const fetchSongs = async () => {
+      console.log("inside fetch songs");
+
       try {
+        console.log("inside fetch try");
         const response = await axios.get(
           "http://localhost:3000/api/v1/dashboard/playlistSongs",
           {
-            params: { playlistId: selectedPlaylistId },
+            params: { playlistId: 1 }, // Send playlistId as query param
           }
         );
-        setFetchedSongs(response.data.playlistSongs);
-      } catch (error) {}
+        console.log("Response data from api ", response.data);
+        setFetchedSongs(response.data);
+      } catch (error) {
+        console.error("Error fetching songs", error);
+      }
     };
     fetchSongs();
-  }, [fetchPlaylistSong]);
+  }, [fetchPlaylistSong, selectedPlaylistId]); // Fetch songs when selectedPlaylistId changes
 
   return (
     <div className="bg-gradient-to-b from-[#1d1d1d] via-[#121212] to-[#121212] px-4">
@@ -109,7 +118,7 @@ export default function SelectePlaylistSong() {
           ))}
         </div>
       ) : (
-        " "
+        ""
       )}
       <SelectPlaylistSongList />
     </div>

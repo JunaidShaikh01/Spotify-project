@@ -280,11 +280,18 @@ dashboardRouter.post(
   }
 );
 
+// Assuming you have `dashboardRouter` defined
+
 dashboardRouter.get("/playlistSongs", async (req, res) => {
   try {
+    const playlistId = parseInt(req.query.playlistId); // Parse playlistId from query params
+    if (isNaN(playlistId)) {
+      return res.status(400).json({ error: "Invalid playlistId" });
+    }
+
     const playlistSongs = await prisma.playlistSongs.findMany({
       where: {
-        playlistId: parseInt(req.query.playlistId),
+        playlistId: playlistId,
       },
       include: {
         song: {
@@ -298,15 +305,18 @@ dashboardRouter.get("/playlistSongs", async (req, res) => {
         },
       },
     });
-    res.json(playlistSongs);
+
+    const songs = playlistSongs.map((ps) => ps.song);
+    res.json(songs);
   } catch (error) {
     console.error("Error fetching songs", error);
     res.status(500).json({
-      error: "internal server error",
-      error: error.message,
+      error: "Internal server error",
+      errorMessage: error.message,
     });
   }
 });
+
 
 module.exports = {
   dashboardRouter,
