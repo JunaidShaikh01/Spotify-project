@@ -6,21 +6,17 @@ import {
   faX,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import SelectPlaylistSongList from "./SelectPlaylistSongList";
 import { useRecoilState } from "recoil";
 import { playlistSongState, selectedPlaylistIdState } from "../Recoil/recoil";
 import axios from "axios";
+import SelectPlaylistSongList from "./SelectPlaylistSongList";
+import SelectedPlaylistSongs from "./SelectedPlaylistSongs";
 
-export default function SelectePlaylistSong() {
+export default function SelectePlaylistSong({ onFetchedImages }) {
   const [selectedPlaylistId] = useRecoilState(selectedPlaylistIdState);
   const [fetchPlaylistSong] = useRecoilState(playlistSongState);
-  const [isOpen, setIsopen] = useState(false);
-  const [isOpenSongList, setIsOpenSongList] = useState(false);
   const [fetchedSongs, setFetchedSongs] = useState([]);
-  console.log("Response received", fetchedSongs);
-  console.log("isOpenSongList", isOpenSongList);
-  console.log("fetchPlaylistSong", fetchPlaylistSong);
-
+  const [isOpen, setIsopen] = useState(false);
   useEffect(() => {
     console.log("Inside useeffect");
 
@@ -32,18 +28,18 @@ export default function SelectePlaylistSong() {
         const response = await axios.get(
           "http://localhost:3000/api/v1/dashboard/playlistSongs",
           {
-            params: { playlistId: 1 }, // Send playlistId as query param
+            params: { playlistId: selectedPlaylistId },
           }
         );
-        console.log("Response data from api ", response.data);
+        const images = response.data.map((song) => song.image);
+        onFetchedImages(images);
         setFetchedSongs(response.data);
       } catch (error) {
         console.error("Error fetching songs", error);
       }
     };
     fetchSongs();
-  }, [fetchPlaylistSong, selectedPlaylistId]); // Fetch songs when selectedPlaylistId changes
-
+  }, [fetchPlaylistSong, selectedPlaylistId]);
   return (
     <div className="bg-gradient-to-b from-[#1d1d1d] via-[#121212] to-[#121212] px-4">
       <div className="w-full flex justify-between items-center pt-8">
@@ -52,17 +48,15 @@ export default function SelectePlaylistSong() {
           onClick={() => setIsopen(false)}
           className="hover:text-white text-[#b2b2b2] hover:scale-110 transform duration-300 ease-in-out"
         />
-        <div
-          className=" flex items-center gap-2"
-          onClick={() => setIsOpenSongList(false)}
-        >
+        <div className=" flex items-center gap-2">
           <p>List</p>
           <FontAwesomeIcon icon={faList} />
         </div>
       </div>
-
+      <SelectedPlaylistSongs fetchedSongs={fetchedSongs} />
+      <div className=" border-t border-stone-700 mb-4"></div>
       {!isOpen ? (
-        <div className="flex w-full justify-between items-center mt-4 border-t border-stone-700 mb-2 ">
+        <div className="flex w-full justify-between items-center mt-4 mb-2 ">
           <div className="mt-2">
             <p className="text-2xl font-semibold mb-4">
               Let's find something for your playlist
@@ -86,40 +80,6 @@ export default function SelectePlaylistSong() {
         ""
       )}
 
-      {!isOpenSongList ? (
-        <div className="songsSection  items-center  ">
-          {fetchedSongs.map((song) => (
-            <div
-              className="songCard  text-white flex gap-2  mb-2 items-center"
-              key={song.id}
-            >
-              <div className="  flex-grow-[150] basis-0 mb-2 ">
-                <div className="flex gap-4">
-                  <img
-                    src={`http://localhost:3000/${song.image}`}
-                    alt="Song Image"
-                    className="w-12 h-12 object-cover rounded-md"
-                  />
-                  <div>
-                    <div>{song.name}</div>
-                    <div className="text-[#b2b2b2]">{song.singerName}</div>
-                  </div>
-                </div>
-              </div>
-              <div className="col flex-grow-[80] basis-0 ">
-                <span>{song.albumName}</span>
-              </div>
-              <div className="col flex-grow-[20]  basis-0  mr-2">
-                <p className="border border-white text-center  rounded-full hover:scale-105 cursor-pointer">
-                  Add
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        ""
-      )}
       <SelectPlaylistSongList />
     </div>
   );

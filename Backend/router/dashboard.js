@@ -301,6 +301,7 @@ dashboardRouter.get("/playlistSongs", async (req, res) => {
             image: true,
             singerName: true,
             albumName: true,
+            duration: true,
           },
         },
       },
@@ -316,7 +317,6 @@ dashboardRouter.get("/playlistSongs", async (req, res) => {
     });
   }
 });
-
 
 module.exports = {
   dashboardRouter,
