@@ -299,6 +299,7 @@ dashboardRouter.get("/playlistSongs", async (req, res) => {
             id: true,
             name: true,
             image: true,
+            audio: true,
             singerName: true,
             albumName: true,
             duration: true,

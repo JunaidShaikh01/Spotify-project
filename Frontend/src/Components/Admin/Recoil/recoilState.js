@@ -10,7 +10,6 @@ export const editModalState = atom({
   default: { isOpen: false, song: null },
 });
 
-
 export const  songsChangedState = atom({
   key: "songsChangedState",
   default: false,

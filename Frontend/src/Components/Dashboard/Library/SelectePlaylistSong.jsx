@@ -18,11 +18,7 @@ export default function SelectePlaylistSong({ onFetchedImages }) {
   const [fetchedSongs, setFetchedSongs] = useState([]);
   const [isOpen, setIsopen] = useState(false);
   useEffect(() => {
-    console.log("Inside useeffect");
-
     const fetchSongs = async () => {
-      console.log("inside fetch songs");
-
       try {
         console.log("inside fetch try");
         const response = await axios.get(

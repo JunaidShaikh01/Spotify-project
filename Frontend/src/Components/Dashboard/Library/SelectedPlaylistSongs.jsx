@@ -1,9 +1,15 @@
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useState } from "react";
+import ReactPlayer from "react-player";
 export default function SelectedPlaylistSongs({ fetchedSongs }) {
+  const [currentSongs, setCurrentSongs] = useState(null);
   const songs = fetchedSongs;
   console.log("Sonngs in Slected playlist ", songs);
+
+  const handlePlaySong = (songUrl) => {
+    setCurrentSongs(songUrl);
+  };
 
   return (
     <div>
@@ -29,6 +35,9 @@ export default function SelectedPlaylistSongs({ fetchedSongs }) {
             <div
               className="songCard  text-white flex gap-2  mb-2 items-center cursor-pointer"
               key={song.id}
+              onClick={() =>
+                handlePlaySong(`http://localhost:3000/${song.audio}`)
+              }
             >
               <div className="col flex-grow-[20] basis-0">
                 <span>{index + 1}</span>
@@ -55,6 +64,23 @@ export default function SelectedPlaylistSongs({ fetchedSongs }) {
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {currentSongs && (
+        <div className="music-player fixed bottom-0 left-0 right-0 p-4 bg-black">
+          <ReactPlayer
+            url={currentSongs}
+            playing
+            controls
+            width="100%"
+            height="50px"
+            style={{ zIndex: 1000 }}
+            onProgress={({ duration, playedSeconds }) => {
+              console.log("Duration: ", duration);
+              console.log("Played seconds: ", playedSeconds);
+            }}
+          />
         </div>
       )}
     </div>

@@ -63,7 +63,7 @@ export default function SelectPlaylistSongList() {
                 className="songCard  text-white flex gap-2  mb-2 items-center"
                 key={song.id}
               >
-                <div className="  flex-grow-[150] basis-0 mb-2 ">
+                <div className="  flex-grow-[100] basis-0 mb-2 ">
                   <div className="flex gap-4">
                     <img
                       src={`http://localhost:3000/${song.image}`}

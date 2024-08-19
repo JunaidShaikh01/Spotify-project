@@ -8,6 +8,7 @@ import FeaturedCharts from "./Featured Charts/FeaturedCharts";
 import Footer from "./Footer/Footer";
 import { useRecoilState } from "recoil";
 import { dateFetchState } from "./Recoil/recoil";
+import Player from "./Player/Player";
 
 export default function Dashboard({ data }) {
   const [, setFetchedData] = useRecoilState(dateFetchState);
@@ -15,7 +16,7 @@ export default function Dashboard({ data }) {
 
   return (
     <div className="bg-black h-screen w-screen">
-      <div className="flex h-full w-full gap-2 p-2">
+      <div className="flex h-[88%] w-full gap-2 p-2">
         <Sidebar data={data} />
         <div className="bg-[#121212] rounded-lg text-white w-full h-full overflow-auto ">
           <Header data={data} />
@@ -26,6 +27,7 @@ export default function Dashboard({ data }) {
           <Footer />
         </div>
       </div>
+      <Player />
     </div>
   );
 }
