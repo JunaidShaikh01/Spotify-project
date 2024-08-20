@@ -2,13 +2,20 @@ import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import ReactPlayer from "react-player";
+import { useRecoilState } from "recoil";
+import { currentSongState } from "../Recoil/recoil";
 export default function SelectedPlaylistSongs({ fetchedSongs }) {
-  const [currentSongs, setCurrentSongs] = useState(null);
+  const [currentSongs, setCurrentSongs] = useRecoilState(currentSongState);
   const songs = fetchedSongs;
-  console.log("Sonngs in Slected playlist ", songs);
-
-  const handlePlaySong = (songUrl) => {
-    setCurrentSongs(songUrl);
+  const handlePlaySong = (song) => {
+    setCurrentSongs({
+      url: `http://localhost:3000/${song.audio}`,
+      id: song.id,
+      name: song.name,
+      image: `http://localhost:3000/${song.image}`,
+      singerName: song.singerName,
+      albumName: song.albumName,
+    });
   };
 
   return (
@@ -35,9 +42,7 @@ export default function SelectedPlaylistSongs({ fetchedSongs }) {
             <div
               className="songCard  text-white flex gap-2  mb-2 items-center cursor-pointer"
               key={song.id}
-              onClick={() =>
-                handlePlaySong(`http://localhost:3000/${song.audio}`)
-              }
+              onClick={() => handlePlaySong(song)}
             >
               <div className="col flex-grow-[20] basis-0">
                 <span>{index + 1}</span>
@@ -67,7 +72,7 @@ export default function SelectedPlaylistSongs({ fetchedSongs }) {
         </div>
       )}
 
-      {currentSongs && (
+      {/* {currentSongs && (
         <div className="music-player fixed bottom-0 left-0 right-0 p-4 bg-black">
           <ReactPlayer
             url={currentSongs}
@@ -82,7 +87,7 @@ export default function SelectedPlaylistSongs({ fetchedSongs }) {
             }}
           />
         </div>
-      )}
+      )} */}
     </div>
   );
 }

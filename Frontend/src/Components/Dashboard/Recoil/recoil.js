@@ -67,3 +67,8 @@ export const playlistSongState = atom({
   key: "playlistSongState",
   default: false,
 });
+
+export const currentSongState = atom({
+  key: "currentSongState",
+  default: null,
+});

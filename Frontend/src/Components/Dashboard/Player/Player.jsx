@@ -1,15 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
+import ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { currentSongState } from "../Recoil/recoil";
 
 export default function Player() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+  const [currentSongs] = useRecoilState(currentSongState);
+  console.log("Current Songs: ", currentSongs);
 
   return (
-    <div className="w-full h-[12%] bg-black flex justify-center items-center">
+    <div className="w-full h-[12%] bg-black ">
       {token ? (
-        <div className="bg-[#121212] h-full w-[98%] rounded-lg flex justify-between py-2 px-4 text-white ">
-          <h1> There is token available</h1>
+        <div className="bg-[#121212] h-full w-[98%] rounded-lg  py-2 px-4 text-white ">
+          <div className="fixed bottom-0 left-0 right-0 p-4">
+            {currentSongs && (
+              <div className="w-full ">
+                <div className="w-[35%]  ">
+                  <img
+                    src={currentSongs.image}
+                    alt="no image "
+                    className="w-12 h-12 rounded-md"
+                  />
+                  <div>
+                    <h1>{currentSongs.name}</h1>
+                    <p>{currentSongs.singerName}</p>
+                  </div>
+                </div>
+                <div className="w-[65%]">
+                  <ReactPlayer url={currentSongs.url} playing controls />
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       ) : (
         <div className="bg-[#121212] h-full w-[98%] rounded-lg flex justify-between py-2 px-4 text-white ">

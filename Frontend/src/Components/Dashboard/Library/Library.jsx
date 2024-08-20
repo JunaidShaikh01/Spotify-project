@@ -8,6 +8,7 @@ import { useRecoilState } from "recoil";
 import Modal from "./Modal";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import Player from "../Player/Player";
 
 export default function Library() {
   const [isModalOpen] = useRecoilState(modalState);
@@ -32,8 +33,8 @@ export default function Library() {
   }, [id]);
 
   return (
-    <div className="bg-black h-screen w-screen relative">
-      <div className="flex h-full w-full gap-2 p-2">
+    <div className="bg-black h-screen w-screen ">
+      <div className="flex h-[88%] w-full gap-2 p-2">
         <Sidebar data={fetchedData} />
         <div className="bg-[#121212] rounded-lg text-white w-full h-full overflow-auto ">
           <Header data={userData} />
@@ -41,7 +42,7 @@ export default function Library() {
           <Footer />
         </div>
       </div>
-
+      <Player />
       {isModalOpen ? <Modal /> : ""}
     </div>
   );
