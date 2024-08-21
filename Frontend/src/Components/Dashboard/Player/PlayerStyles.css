@@ -1,0 +1,34 @@
+/* PlayerStyles.css */
+
+/* Styling the player container */
+.custom-player .react-player__preview {
+  background-color: #1db954 !important ; /* Example: changing the preview background color */
+}
+
+/* Customizing the controls */
+.custom-player .react-player__play-icon {
+  border-color: transparent transparent transparent #fff !important ; /* Example: change play button color */
+}
+
+.custom-player .react-player__controls {
+  color: #1db954 !important ; /* Example: change control colors to match theme */
+}
+
+/* Customize progress bar */
+.custom-player .react-player__progress {
+  background-color: #404040 !important ; /* Example: change progress bar background */
+}
+
+.custom-player .react-player__progress-bar {
+  background-color: #1db954 !important ; /* Example: change progress bar color */
+}
+
+/* Volume control */
+.custom-player .react-player__volume {
+  color: #fff !important ; /* Example: change volume icon color */
+}
+
+/* Fullscreen button */
+.custom-player .react-player__fullscreen {
+  color: #fff !important ; /* Example: change fullscreen icon color */
+}

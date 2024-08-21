@@ -16,7 +16,7 @@ export default function Dashboard({ data }) {
 
   return (
     <div className="bg-black h-screen w-screen">
-      <div className="flex h-[88%] w-full gap-2 p-2">
+      <div className="flex h-[88vh] w-full gap-2 p-2">
         <Sidebar data={data} />
         <div className="bg-[#121212] rounded-lg text-white w-full h-full overflow-auto ">
           <Header data={data} />
